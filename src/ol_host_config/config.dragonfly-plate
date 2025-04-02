@@ -1,0 +1,26 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+
+Plugin: <Name: Dragonfly Plate Reverb>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Dry Level>, <CC: 83>, <OSC: /dry>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Wet Level>, <OSC: /wet>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Algorithm>, <OSC: /algorithm>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Width>, <OSC: /width>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Predelay>, <CC: 81>, <OSC: /pre>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Decay>, <CC: 80>, <OSC: /decay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Low Cut> <OSC: /low-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: High Cut>, <OSC: /high-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Dampen>, <CC: 82>, <OSC: /damp>
