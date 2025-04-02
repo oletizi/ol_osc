@@ -1,0 +1,55 @@
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#                                                        Midi Input Device: <Name: Volt 4 MIDI 1>
+
+Plugin: <Name: Dragonfly Hall Reverb>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Dry Level>, <CC: 83>, <OSC: /dry>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Early Level> <OSC: /early>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Late Level> <OSC: /late>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Size> <OSC: /size>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Width> <OSC: /width>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Predelay>, <CC: 81>, <OSC: /pre>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Diffuse> <OSC: /diffuse>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Low Cut> <OSC: /low-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Low Cross> <OSC: /low-cross>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Low Mult> <OSC: /low-multi>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: High Cut>, <CC: 82>, <OSC: /high-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: High Cross> <OSC: /high-cross>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: High Mult> <OSC: /high-mult>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Spin> <OSC: /spin>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Wander> <OSC: /wander>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Decay>, <CC: 80>, <OSC: /decay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Early Send> <OSC: /early-send>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Hall Reverb>, <Parameter Name: Modulation> <OSC: /mod>
+
+#Plugin: <Name: Dragonfly Plate Reverb>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Dry Level>, <CC: 83>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Wet Level>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Algorithm>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Width>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Predelay>, <CC: 81>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Decay>, <CC: 80>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Low Cut>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: High Cut>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Plate Reverb>, <Parameter Name: Dampen>, <CC: 82>
+
+
+#Plugin: <Name: ZynReverb>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Time>, <CC: 80>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Delay>, <CC: 81>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Feedback>, <CC: 82>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: bw (unused)>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: E/R (unused)>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Low-Pass Filter>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: High-Pass Filter>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Damp>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Type>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Room size>, <CC: 83>
+#Plugin Parameter: <Format: LV2>, <Plugin Name: ZynReverb>, <Parameter Name: Bandwidth>
