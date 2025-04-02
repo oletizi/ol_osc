@@ -1,0 +1,34 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+Plugin: <Name: Dragonfly Room Reverb>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Decay>, <OSC: /decay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Predelay>, <OSC: /pre>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Size>, <OSC: /size>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Width>, <OSC: /width>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Diffuse>, <OSC: /diffuse>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Early Level>, <OSC: /early>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Late Level>, <OSC: /late>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Early Send>, <OSC: /early-send>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Early Damp>, <OSC: /early-damp>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Late Damp>, <OSC: /late-damp>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Low Boost>, <OSC: /low-boost>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Boost Freq>, <OSC: /boost-freq>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: High Cut>, <OSC: /high-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Low Cut>, <OSC: /low-cut>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Spin>, <OSC: /spin>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Wander>, <OSC: /wander>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Dragonfly Room Reverb>, <Parameter Name: Dry Level>, <OSC: /dry>
+
