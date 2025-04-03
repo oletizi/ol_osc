@@ -17,7 +17,7 @@ Plugin: <Name: ZynChorus>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Frequency>, <OSC: /freq>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Randomness>, <OSC: /rand>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Type>, <OSC: /type>
-Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Stereo, <OSC: /stereo>>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Stereo, <OSC: /stereo>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Depth>, <OSC: /depth>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Delay>, <OSC: /delay>
 Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Feedback>, <OSC: /feedback>
