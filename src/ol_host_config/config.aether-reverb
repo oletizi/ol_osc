@@ -1,0 +1,66 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+Plugin: <Name: Aether>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Mix>, <OSC: /mix>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Dry Level>, <OSC: /dry>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Predelay Level>, <OSC: /pre-level>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Level>, <OSC: /early>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Level>, <OSC: /late>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Interpolate>, <OSC: /interpolate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Width>, <OSC: /width>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Predelay>, <OSC: /pre>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Enabled>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Enabled>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Taps>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Delay Length>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Mix>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Decay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Stages>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Order>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Lines>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Mod Depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Line Mod Rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Line Feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Stages>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Enabled>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Gain>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Enabled>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Gain>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Enabled>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Seed Crossmix>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Tap Seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Saturation Drive>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Saturation Drive>
+
+
+
