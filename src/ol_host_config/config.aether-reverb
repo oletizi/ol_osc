@@ -22,45 +22,45 @@ Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Le
 Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Interpolate>, <OSC: /interpolate>
 Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Width>, <OSC: /width>
 Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Predelay>, <OSC: /pre>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Enabled>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Cutoff>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Enabled>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Cutoff>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Taps>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Delay Length>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Mix>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Decay>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Stages>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Delay>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Depth>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Rate>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Feedback>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Order>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Lines>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Mod Depth>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Line Mod Rate>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Line Feedback>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Stages>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Delay>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Depth>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Rate>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Feedback>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Enabled>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Cutoff>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Gain>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Enabled>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Cutoff>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Gain>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Enabled>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Cutoff>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Seed Crossmix>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Tap Seed>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Seed>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Seed>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Seed>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Saturation Drive>
-Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Saturation Drive>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Enabled>, <OSC: /low-cut-enable>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Low Cut Cutoff>, <OSC: /low-cut-cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Enabled>, <OSC: /high-cut-enable>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early High Cut Cutoff>, <OSC: /high-cut-cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Taps>, <OSC: /tap-count>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Delay Length>, <OSC: /early-delay-length>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Mix>, <OSC: /early-tap-mix>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Tap Decay>, <OSC: /early-tap-decay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Stages>, <OSC: /early-diff-stages>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Delay>, <OSC: /early-diff-delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Depth>, <OSC: /early-diff-mod-depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Mod Rate>, <OSC: /early-diff-mod-rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Feedback>, <OSC: /early-diff-feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Order>, <OSC: /late-order>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Lines>, <OSC: /late-delay-lines>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay>, <OSC: /late-delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Mod Depth>, <OSC: /late-delay-mod-depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Line Mod Rate>, <OSC: /late-delay-mod-rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Delay Line Feedback>, <OSC: /late-delay-feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Stages>, <OSC: /late-diff-stages>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Delay>, <OSC: /late-diff-delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Depth>, <OSC: /late-diff-mod-depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Mod Rate>, <OSC: /late-diff-mod-rate>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Feedback>, <OSC: /late-diff-feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Enabled>, <OSC: /late-low-shelf-enable>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Cutoff>, <OSC: /late-low-shelf-cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Low Shelf Gain>, <OSC: /late-low-shelf-gain>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Enabled>, <OSC: /late-high-shelf-enable>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Cutoff>, <OSC: /late-high-shelf-cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late high Shelf Gain>, <OSC: /late-high-shelf-gain>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Enabled>, <OSC: /late-high-cut-enable>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late High Cut Cutoff>, <OSC: /late-high-cut-cutoff>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Seed Crossmix>, <OSC: /seed-crossmix>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Tap Seed>, <OSC:, /tap-seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Seed>, <OSC: /early-diff-seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Delay Seed>, <OSC: /delay-seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Seed>, <OSC: /late-diff-seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Early Diffusion Saturation Drive>, <OSC: /early-diff-saturation>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Aether>, <Parameter Name: Late Diffusion Saturation Drive>, <OSC: /late-diff-saturation>
 
 
 
