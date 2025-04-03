@@ -1,0 +1,28 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+Plugin: <Name: ZynChorus>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Frequency>, <OSC: /freq>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Randomness>, <OSC: /rand>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Type>, <OSC: /type>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: LFO Stereo, <OSC: /stereo>>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Depth>, <OSC: /depth>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Delay>, <OSC: /delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Feedback>, <OSC: /feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: L/R Cross>, <OSC: /cross>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Flange Mode>, <OSC: /flange>
+Plugin Parameter: <Format: LV2>, <Plugin Name: ZynChorus>, <Parameter Name: Subtract Output>, <OSC: /substract>
+
+
