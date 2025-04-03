@@ -1,0 +1,28 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+
+Plugin: <Name: Delayorama>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Random seed>, <OSC: /seed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Input gain (dB)>, <OSC: /gain>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Feedback (%)>, <OSC: /feedback>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Number of taps>, <OSC: /taps>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: First delay (s)> <OSC: /first-delay>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Delay range (s)>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Delay change>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Delay random (%)>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Amplitude change>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Amplitude random (%)>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Delayorama>, <Parameter Name: Dry/wet mix>, <OSC: /mix>

@@ -1,0 +1,27 @@
+# ALSA direct
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct hardware device without any conversions>
+#Audio Input Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample snooping device>
+#Audio Output Device: <Type: ALSA>, <Name: Volt 4, USB Audio; Direct sample mixing device>
+
+# JACK
+#Audio Input Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Audio Output Device: <Type: ALSA>, <Name: JACK Audio Connection Kit>
+#Midi Input Device: <Name: Volt 4 MIDI 1>
+
+# Pipewire
+Audio Input Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+Audio Output Device: <Type: ALSA>, <Name: PipeWire Sound Server>
+
+Plugin: <Name: Tape Delay Simulation>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tape speed (inches/sec, 1=normal)>, <OSC: /speed>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Dry level (dB)>, <OSC: /dry>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 1 distance (inches)>, <OSC: /tap-1>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 1 level (dB)>, <OSC: /tap-1-level>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 2 distance (inches)>, <OSC: /tap-2>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 2 level (dB)>, <OSC: /tap-2-level>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 3 distance (inches)>, <OSC: /tap-3>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 3 level (dB)>, <OSC: /tap-3-level>
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 4 distance (inches)>, <OSC: /tap-4> 
+Plugin Parameter: <Format: LV2>, <Plugin Name: Tape Delay Simulation>, <Parameter Name: Tap 4 level (dB)>, <OSC: /tap-4-level>
+
