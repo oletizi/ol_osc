@@ -2,11 +2,13 @@
   "name": "ol_osc",
   "version": "0.1.1",
   "description": "osc configurations for audio plugins",
-  "main": "src/js/gen.js",
+  "main": "src/ts/gen.ts",
+  "type": "module",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "gen": "tsx src/ts/gen.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -14,5 +16,18 @@
     "url": "https://github.com//oletizi/ol_osc"
   },
   "author": "Orion Letizi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@oletizi/sampler-lib": "^1.0.9",
+    "typescript": "^5.8.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^5.2.1",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.14.0",
+    "chai": "^5.2.0",
+    "mocha": "^11.1.0",
+    "mochawesome": "^7.1.3",
+    "tsx": "^4.19.3"
+  }
 }
