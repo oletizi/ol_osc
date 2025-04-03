@@ -1,0 +1,16 @@
+{
+  "devices": [
+    {
+      "name": "Test Device",
+      "parameters": [
+        {
+          "name": "Basic Parameter",
+          "description": "A basic parameter spec",
+          "osc": "/basic",
+          "label": "basic",
+          "type": "fader"
+        }
+      ]
+    }
+  ]
+}

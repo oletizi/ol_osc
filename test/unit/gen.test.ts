@@ -1,6 +1,6 @@
 import * as fs from 'fs/promises'
 import path from 'node:path'
-import {hydrateWidgets} from '@/gen.js'
+import {hydrateSpec, hydrateWidgets} from '@/gen.js'
 import {expect} from 'chai'
 
 describe('gen basics', async () => {
@@ -16,6 +16,27 @@ describe('gen basics', async () => {
         expect(w2).to.exist
         if (w2) {
             expect(w2.type).eq('text')
+        }
+    })
+    it('parses specs', async () => {
+        const spec = hydrateSpec((await fs.readFile(path.join('test', 'data', 'spec.json'))).toString())
+        expect(spec).to.exist
+        expect(spec.devices).to.exist
+        expect(spec.devices.length).gte(1)
+        const [device] = spec.devices
+        expect(device).to.exist
+        if (device) {
+            expect(device.name).to.equal('Test Device')
+            expect(device.parameters).to.exist
+            expect(device.parameters.length).gte(1)
+            const [parameter] = device.parameters
+            expect(parameter).to.exist
+            if (parameter) {
+                expect(parameter.name).to.equal('Basic Parameter')
+                expect(parameter.type).to.equal('fader')
+                expect(parameter.osc).to.equal('/basic')
+                expect(parameter.label).to.equal('basic')
+            }
         }
     })
 })
