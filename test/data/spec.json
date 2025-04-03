@@ -4,10 +4,17 @@
       "name": "Test Device",
       "parameters": [
         {
-          "name": "Basic Parameter",
-          "description": "A basic parameter spec",
-          "osc": "/basic",
-          "label": "basic",
+          "name": "Param 1",
+          "description": "Parameter 1",
+          "osc": "/param1",
+          "label": "param 1",
+          "type": "fader"
+        },
+        {
+          "name": "Param 2",
+          "description": "Parameter 2",
+          "osc": "/param2",
+          "label": "param 2",
           "type": "fader"
         }
       ]
