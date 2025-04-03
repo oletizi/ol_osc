@@ -1,0 +1,18 @@
+{
+  "name": "ol_osc",
+  "version": "0.1.1",
+  "description": "osc configurations for audio plugins",
+  "main": "src/js/gen.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//oletizi/ol_osc"
+  },
+  "author": "Orion Letizi",
+  "license": "ISC"
+}
