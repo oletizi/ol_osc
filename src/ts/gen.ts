@@ -28,6 +28,7 @@ export interface Parameter {
 
 export interface Device {
     name: string
+    id: string
     parameters: Parameter[]
 }
 

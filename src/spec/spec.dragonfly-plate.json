@@ -1,7 +1,8 @@
 {
   "devices": [
     {
-      "name": "Dragonfly Reverb",
+      "name": "Dragonfly Plate Reverb",
+      "id": "dragonfly-plate-reverb",
       "parameters": [
         {
           "name": "Dry Level",
