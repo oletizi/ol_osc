@@ -1,0 +1,65 @@
+{
+  "devices": [
+    {
+      "name": "Dragonfly Reverb",
+      "parameters": [
+        {
+          "name": "Dry Level",
+          "description": "",
+          "osc": "/dry",
+          "label": "dry",
+          "type": "fader"
+        },
+        {
+          "name": "Wet Level",
+          "description": "",
+          "osc": "/web",
+          "label": "wet",
+          "type": "fader"
+        },
+        {
+          "name": "Algorithm",
+          "osc": "/algorithm",
+          "label": "alg",
+          "type": "fader"
+        },
+        {
+          "name": "Width",
+          "osc": "/width",
+          "label": "width",
+          "type": "fader"
+        },
+        {
+          "name": "Predelay",
+          "osc": "/pre",
+          "label": "pre",
+          "type": "fader"
+        },
+        {
+          "name": "Decay",
+          "osc": "/decay",
+          "label": "decay",
+          "type": "fader"
+        },
+        {
+          "name": "Low Cut",
+          "osc": "/low-cut",
+          "label": "lo cut",
+          "type": "fader"
+        },
+        {
+          "name": "High Cut",
+          "osc": "/high-cut",
+          "label": "hi cut",
+          "type": "fader"
+        },
+        {
+          "name": "Dampen",
+          "osc": "/damp",
+          "label": "damp",
+          "type": "fader"
+        }
+      ]
+    }
+  ]
+}
