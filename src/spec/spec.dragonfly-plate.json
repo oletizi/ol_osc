@@ -6,56 +6,56 @@
         {
           "name": "Dry Level",
           "description": "",
-          "osc": "/dry",
+          "osc": "dry",
           "label": "dry",
           "type": "fader"
         },
         {
           "name": "Wet Level",
           "description": "",
-          "osc": "/web",
+          "osc": "web",
           "label": "wet",
           "type": "fader"
         },
         {
           "name": "Algorithm",
-          "osc": "/algorithm",
+          "osc": "algorithm",
           "label": "alg",
           "type": "fader"
         },
         {
           "name": "Width",
-          "osc": "/width",
+          "osc": "width",
           "label": "width",
           "type": "fader"
         },
         {
           "name": "Predelay",
-          "osc": "/pre",
+          "osc": "pre",
           "label": "pre",
           "type": "fader"
         },
         {
           "name": "Decay",
-          "osc": "/decay",
+          "osc": "decay",
           "label": "decay",
           "type": "fader"
         },
         {
           "name": "Low Cut",
-          "osc": "/low-cut",
+          "osc": "low-cut",
           "label": "lo cut",
           "type": "fader"
         },
         {
           "name": "High Cut",
-          "osc": "/high-cut",
+          "osc": "high-cut",
           "label": "hi cut",
           "type": "fader"
         },
         {
           "name": "Dampen",
-          "osc": "/damp",
+          "osc": "damp",
           "label": "damp",
           "type": "fader"
         }
