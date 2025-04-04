@@ -6,6 +6,12 @@ export interface Widget {
     left: number
 }
 
+export interface OscDocument {
+    content: {
+        widgets: Widget[]
+    }
+}
+
 export function hydrateWidgets(json: string) {
     return JSON.parse(json) as Widget[]
 }
