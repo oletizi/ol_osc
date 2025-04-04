@@ -43,8 +43,6 @@ describe('gen basics', async () => {
     it('generates widgets', async () => {
         const config = await newConfig()
 
-        const widgetWidth = config.widgetWidth
-        const faderHeight = config.faderHeight
         const spec = hydrateSpec((await fs.readFile(path.join('test', 'data', 'spec.json'))).toString())
         expect(spec.devices.length).gte(1)
         if (spec.devices[0]) {
@@ -55,22 +53,22 @@ describe('gen basics', async () => {
 
             expect(f1).to.exist
             expect(f1?.type).eq('fader')
-            expect(f1?.top).eq(0)
-            expect(f1?.left).eq(0)
+            expect(f1?.top).eq(config.controlTop)
+            expect(f1?.left).eq(config.controlLeft)
 
             expect(l1).to.exist
             expect(l1?.type).eq('text')
             expect(l1?.value).eq('param 1')
-            expect(l1?.top).eq(faderHeight)
-            expect(l1?.left).eq(0)
+            expect(l1?.top).eq(config.controlTop + config.faderHeight)
+            expect(l1?.left).eq(config.controlLeft)
 
             expect(f2).to.exist
-            expect(f2?.top).eq(0)
-            expect(f2?.left).eq(widgetWidth)
+            expect(f2?.top).eq(config.controlTop)
+            expect(f2?.left).eq(config.controlLeft + config.controlWidth)
 
             expect(l2).to.exist
-            expect(l2?.left).eq(widgetWidth)
-            expect(l2?.top).eq(faderHeight)
+            expect(l2?.left).eq(config.controlLeft + config.controlWidth)
+            expect(l2?.top).eq(config.controlTop + config.faderHeight)
         }
     })
 })

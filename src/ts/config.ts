@@ -3,7 +3,9 @@ import path from 'path'
 import * as fs from 'fs/promises'
 
 export interface Config {
-    widgetWidth: number
+    controlTop: number
+    controlLeft: number
+    controlWidth: number
     faderHeight: number
     newWidgetFaderTemplate(): Widget
     newWidgetLabelTemplate(): Widget
@@ -14,7 +16,9 @@ export async function newConfig() {
     const oscTemplate = JSON.parse((await fs.readFile(path.join('src', 'open-stage-control', 'template.json'))).toString())
     const [faderWidget, labelWidget] = oscTemplate['content']['widgets']
     return {
-        widgetWidth: 50,
+        controlTop: 100,
+        controlLeft: 0,
+        controlWidth: 50,
         faderHeight: 210,
         newWidgetFaderTemplate() {
             return deepCopy(faderWidget)

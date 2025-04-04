@@ -8,7 +8,7 @@
     "test": "test"
   },
   "scripts": {
-    "gen": "tsx src/ts/main.ts ./src/spec/spec.dragonfly-plate.json",
+    "gen": "tsx src/ts/main.ts src/spec/spec.all.json",
     "test": "c8 mocha 'test/**/*.test.{js,ts,tsx}'"
   },
   "repository": {

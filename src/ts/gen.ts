@@ -42,14 +42,14 @@ export function hydrateSpec(json: string): Spec {
 
 export function genWidgets(config: Config, device: Device) {
     const rv: Widget[] = []
-    let top = 0, left = 0
+    let top = config.controlTop, left = config.controlLeft
     for (const p of device.parameters) {
         const fader = config.newWidgetFaderTemplate()
         fader.id = p.osc
         fader.left = left
         fader.top = top
-
         rv.push(fader)
+
         const label = config.newWidgetLabelTemplate()
         label.id = `l_${p.osc}`
         label.value = p.label
@@ -57,7 +57,7 @@ export function genWidgets(config: Config, device: Device) {
         label.left = left
         rv.push(label)
 
-        left += config.widgetWidth
+        left += config.controlWidth
     }
     return rv
 }
