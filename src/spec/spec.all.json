@@ -1,6 +1,349 @@
 {
   "devices": [
     {
+      "name": "Aether Reverb",
+      "id": "aether-reverb",
+      "format": "LV2",
+      "parameters": [
+        {
+          "name": "Mix",
+          "description": "",
+          "osc": "mix",
+          "label": "mix",
+          "type": "fader"
+        },
+        {
+          "name": "Dry",
+          "description": "",
+          "osc": "dry",
+          "label": "dry",
+          "type": "fader"
+        },
+        {
+          "name": "Predelay Level",
+          "description": "",
+          "osc": "pre-level",
+          "label": "pre l",
+          "type": "fader"
+        },
+        {
+          "name": "Early Level",
+          "description": "",
+          "osc": "early",
+          "label": "early",
+          "type": "fader"
+        },
+        {
+          "name": "Late Level",
+          "description": "",
+          "osc": "late",
+          "label": "late",
+          "type": "fader"
+        },
+        {
+          "name": "Interpolate",
+          "description": "",
+          "osc": "interpolate",
+          "label": "int",
+          "type": "fader"
+        },
+        {
+          "name": "Width",
+          "description": "",
+          "osc": "width",
+          "label": "width",
+          "type": "fader"
+        },
+        {
+          "name": "Predelay",
+          "description": "",
+          "osc": "pre",
+          "label": "pre t",
+          "type": "fader"
+        },
+        {
+          "name": "Early Low Cut Enable",
+          "description": "",
+          "osc": "low-cut-enable",
+          "label": "lo cut on",
+          "type": "fader"
+        },
+        {
+          "name": "Early Low Cut Cutoff",
+          "description": "",
+          "osc": "low-cut-cutoff",
+          "label": "lo cut freq",
+          "type": "fader"
+        },
+        {
+          "name": "Early High Cut Enable",
+          "description": "",
+          "osc": "high-cut-enable",
+          "label": "hi cut on",
+          "type": "fader"
+        },
+        {
+          "name": "Early High Cut Cutoff",
+          "description": "",
+          "osc": "high-cut-cutoff",
+          "label": "hi cut freq",
+          "type": "fader"
+        },
+        {
+          "name": "Delay Taps",
+          "description": "",
+          "osc": "tap-count",
+          "label": "tap cnt",
+          "type": "fader"
+        },
+        {
+          "name": "Early Delay Length",
+          "description": "",
+          "osc": "early-delay-length",
+          "label": "edl",
+          "type": "fader"
+        },
+        {
+          "name": "Early Tap Mix",
+          "description": "",
+          "osc": "early-tap-mix",
+          "label": "etm",
+          "type": "fader"
+        },
+        {
+          "name": "Early Tap Decay",
+          "description": "",
+          "osc": "early-tap-decay",
+          "label": "etd",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Stages",
+          "description": "",
+          "osc": "early-diff-stages",
+          "label": "eds",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Delay",
+          "description": "",
+          "osc": "early-diff-delay",
+          "label": "edd",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Mod Depth",
+          "description": "",
+          "osc": "early-diff-mod-depth",
+          "label": "edmd",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Mod Rate",
+          "description": "",
+          "osc": "early-diff-mod-rate",
+          "label": "edmr",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Feedback",
+          "description": "",
+          "osc": "early-diff-feedback",
+          "label": "edf",
+          "type": "fader"
+        },
+        {
+          "name": "Late Order",
+          "description": "",
+          "osc": "late-order",
+          "label": "lt ord",
+          "type": "fader"
+        },
+        {
+          "name": "Late Delay Lines",
+          "description": "",
+          "osc": "late-delay-lines",
+          "label": "ldl",
+          "type": "fader"
+        },
+        {
+          "name": "Late Delay",
+          "description": "",
+          "osc": "late-delay",
+          "label": "lt dly",
+          "type": "fader"
+        },
+        {
+          "name": "Late Delay Mod Depth",
+          "description": "",
+          "osc": "late-delay-mod-depth",
+          "label": "ldmd",
+          "type": "fader"
+        },
+        {
+          "name": "Late Line Mod Rate",
+          "description": "",
+          "osc": "late-delay-mod-rate",
+          "label": "ldmr",
+          "type": "fader"
+        },
+        {
+          "name": "Late Delay Line Feedback",
+          "description": "",
+          "osc": "late-delay-feedback",
+          "label": "ldf",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Stages",
+          "description": "",
+          "osc": "late-diff-stages",
+          "label": "ldif stgs",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Delay",
+          "description": "",
+          "osc": "late-diff-delay",
+          "label": "ldif dly",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Mod Depth",
+          "description": "",
+          "osc": "late-diff-mod-depth",
+          "label": "ldif md",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Mod Rate",
+          "description": "",
+          "osc": "late-diff-mod-rate",
+          "label": "ldif mr",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Feedback",
+          "description": "",
+          "osc": "late-diff-feedback",
+          "label": "ldif fbk",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Stages",
+          "description": "",
+          "osc": "late-diff-stages",
+          "label": "ldif stgs",
+          "type": "fader"
+        },
+        {
+          "name": "Late Low Shelf Enabled",
+          "description": "",
+          "osc": "late-low-shelf-enable",
+          "label": "lls on",
+          "type": "fader"
+        },
+        {
+          "name": "Late Low Shelf Cutoff",
+          "description": "",
+          "osc": "late-low-shelf-cutoff",
+          "label": "lls freq",
+          "type": "fader"
+        },
+        {
+          "name": "Late Low Shelf Gain",
+          "description": "",
+          "osc": "late-low-shelf-gain",
+          "label": "lls gn",
+          "type": "fader"
+        },
+        {
+          "name": "Late high Shelf Enabled",
+          "description": "",
+          "osc": "late-high-shelf-enable",
+          "label": "lhs on",
+          "type": "fader"
+        },
+        {
+          "name": "Late high Shelf Cutoff",
+          "description": "",
+          "osc": "late-high-shelf-cutoff",
+          "label": "lhs freq",
+          "type": "fader"
+        },
+        {
+          "name": "Late high Shelf Gain",
+          "description": "",
+          "osc": "late-high-shelf-gain",
+          "label": "lhs gn",
+          "type": "fader"
+        },
+        {
+          "name": "Late High Cut Enabled",
+          "description": "",
+          "osc": "late-high-cut-enable",
+          "label": "lhc on",
+          "type": "fader"
+        },
+        {
+          "name": "Late High Cut Cutoff",
+          "description": "",
+          "osc": "late-high-cut-cutoff",
+          "label": "lhc freq",
+          "type": "fader"
+        },
+        {
+          "name": "Seed Crossmix",
+          "description": "",
+          "osc": "seed-crossmix",
+          "label": "sd xmix",
+          "type": "fader"
+        },
+        {
+          "name": "Tap Seed",
+          "description": "",
+          "osc": "tap-seed",
+          "label": "sd tap",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Seed",
+          "description": "",
+          "osc": "early-diff-seed",
+          "label": "edif sd",
+          "type": "fader"
+        },
+        {
+          "name": "Delay Seed",
+          "description": "",
+          "osc": "delay-seed",
+          "label": "dly sd",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Seed",
+          "description": "",
+          "osc": "late-diff-seed",
+          "label": "ldif sd",
+          "type": "fader"
+        },
+        {
+          "name": "Early Diffusion Saturation Drive",
+          "description": "",
+          "osc": "early-diff-saturation",
+          "label": "edif sat",
+          "type": "fader"
+        },
+        {
+          "name": "Late Diffusion Saturation Drive",
+          "description": "",
+          "osc": "late-diff-saturation",
+          "label": "ldif sat",
+          "type": "fader"
+        }
+      ]
+    },
+    {
       "name": "Dragonfly Plate Reverb",
       "id": "dragonfly-plate-reverb",
       "parameters": [
