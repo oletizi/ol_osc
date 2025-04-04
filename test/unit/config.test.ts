@@ -5,7 +5,7 @@ describe('config', async () => {
         it('has sensible defaults', async () => {
             const config = await newConfig()
             expect(config).to.exist
-            expect(config.widgetHeight)
+            expect(config.faderHeight)
             expect(config.widgetWidth)
 
             const faderTemplate = config.newWidgetFaderTemplate()

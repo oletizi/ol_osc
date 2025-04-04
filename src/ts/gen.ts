@@ -1,3 +1,5 @@
+import type {Config} from '@/config.js'
+
 export interface Widget {
     type: string
     id: string
@@ -37,20 +39,24 @@ export function hydrateSpec(json: string): Spec {
     return JSON.parse(json) as Spec
 }
 
-export function genWidgets(device: Device) {
+export function genWidgets(config: Config, device: Device) {
     const rv: Widget[] = []
     let top = 0, left = 0
     for (const p of device.parameters) {
-        const fader: Widget = {
-            id: p.name, left: left, top: top, type: 'fader', value: '0'
-        }
+        const fader = config.newWidgetFaderTemplate()
+        fader.id = p.osc
+        fader.left = left
+        fader.top = top
+
         rv.push(fader)
-        const label: Widget = {
-            id: `l_${p.name}`, left: left, top: 150, type: 'text', value: p.label
-        }
+        const label = config.newWidgetLabelTemplate()
+        label.id = `l_${p.osc}`
+        label.value = p.label
+        label.top = top + config.faderHeight
+        label.left = left
         rv.push(label)
 
-        left += 50
+        left += config.widgetWidth
     }
     return rv
 }

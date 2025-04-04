@@ -4,7 +4,7 @@ import * as fs from 'fs/promises'
 
 export interface Config {
     widgetWidth: number
-    widgetHeight: number
+    faderHeight: number
     newWidgetFaderTemplate(): Widget
     newWidgetLabelTemplate(): Widget
     newOscDocumentTemplate(): OscDocument
@@ -15,7 +15,7 @@ export async function newConfig() {
     const [faderWidget, labelWidget] = oscTemplate['content']['widgets']
     return {
         widgetWidth: 50,
-        widgetHeight: 210,
+        faderHeight: 210,
         newWidgetFaderTemplate() {
             return deepCopy(faderWidget)
         },

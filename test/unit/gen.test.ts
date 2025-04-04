@@ -2,6 +2,7 @@ import * as fs from 'fs/promises'
 import path from 'node:path'
 import {genWidgets, hydrateSpec, hydrateWidgets} from '@/gen.js'
 import {expect} from 'chai'
+import {newConfig} from '@/config.js'
 
 describe('gen basics', async () => {
     it('parses widgets', async () => {
@@ -40,12 +41,14 @@ describe('gen basics', async () => {
         }
     })
     it('generates widgets', async () => {
-        const widgetWidth = 50
-        const faderHeight = 150
+        const config = await newConfig()
+
+        const widgetWidth = config.widgetWidth
+        const faderHeight = config.faderHeight
         const spec = hydrateSpec((await fs.readFile(path.join('test', 'data', 'spec.json'))).toString())
         expect(spec.devices.length).gte(1)
         if (spec.devices[0]) {
-            const widgets = genWidgets(spec.devices[0])
+            const widgets = genWidgets(config, spec.devices[0])
             expect(widgets).to.exist
             expect(widgets.length).gte(4)
             const [f1, l1, f2, l2] = widgets
