@@ -1,9 +1,11 @@
-import {newConfig} from '@/config.js'
+import {newServerConfig, newWidgetConfig} from '@/config.js'
 import {expect} from 'chai'
+import * as tmp from 'tmp'
+import * as fs from 'fs/promises'
 
-describe('config', async () => {
+describe('WidgetConfig', async () => {
         it('has sensible defaults', async () => {
-            const config = (await newConfig()).widgetConfig
+            const config = await newWidgetConfig()
             expect(config).to.exist
             expect(config.faderHeight)
             expect(config.controlWidth)
@@ -22,3 +24,34 @@ describe('config', async () => {
         })
     }
 )
+
+describe('ServerConfig', function () {
+    this.beforeAll(async () => {
+        tmp.setGracefulCleanup()
+    })
+    it('Barfs if dataDir does not exist', async () => {
+        await newServerConfig('a directory that does not exist')
+            .then(() => {
+                throw new Error('Unexpected.')
+            })
+            .catch((e) => {
+                expect(e.message).not.eq('Unexpected.')
+            })
+    })
+    it(`Barfs if dataDir is not a directory.`, async () => {
+        const bogus = tmp.fileSync()
+        const stat = await fs.stat(bogus.name)
+        expect(stat.isDirectory()).to.be.false
+        try {
+            await newServerConfig(bogus.name)
+            // noinspection ExceptionCaughtLocallyJS
+            throw new Error('Unexpected.')
+        } catch (e) {
+            // @ts-ignore
+            expect(e.message).not.eq('Unexpected.')
+        }
+    })
+    it('has sensible defaults', async () => {
+
+    })
+})
