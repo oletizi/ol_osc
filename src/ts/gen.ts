@@ -59,5 +59,8 @@ export function genWidgets(config: Config, device: Device) {
 
         left += config.controlWidth
     }
+    const title = config.newWidgetTitleTemplate()
+    title.value= device.name
+    rv.push(title)
     return rv
 }

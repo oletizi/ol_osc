@@ -7,6 +7,7 @@ export interface Config {
     controlLeft: number
     controlWidth: number
     faderHeight: number
+    newWidgetTitleTemplate(): Widget
     newWidgetFaderTemplate(): Widget
     newWidgetLabelTemplate(): Widget
     newOscDocumentTemplate(): OscDocument
@@ -14,12 +15,16 @@ export interface Config {
 
 export async function newConfig() {
     const oscTemplate = JSON.parse((await fs.readFile(path.join('src', 'open-stage-control', 'template.json'))).toString())
-    const [faderWidget, labelWidget] = oscTemplate['content']['widgets']
+    const [faderWidget, labelWidget, titleWidget] = oscTemplate['content']['widgets']
     return {
         controlTop: 100,
         controlLeft: 0,
         controlWidth: 50,
         faderHeight: 210,
+
+        newWidgetTitleTemplate() {
+            return deepCopy(titleWidget)
+        },
         newWidgetFaderTemplate() {
             return deepCopy(faderWidget)
         },
