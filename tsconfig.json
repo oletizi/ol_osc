@@ -1,5 +1,6 @@
 {
   /* https://www.totaltypescript.com/tsconfig-cheat-sheet */
+  "extends": "astro/tsconfigs/base",
   "compilerOptions": {
     /* Base Options: */
     "esModuleInterop": true,
