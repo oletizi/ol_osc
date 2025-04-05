@@ -1,4 +1,4 @@
-import type {Config} from '@/config.js'
+import type {WidgetConfig} from '@/config.js'
 
 export interface Widget {
     type: string
@@ -40,7 +40,7 @@ export function hydrateSpec(json: string): Spec {
     return JSON.parse(json) as Spec
 }
 
-export function genWidgets(config: Config, device: Device) {
+export function genWidgets(config: WidgetConfig, device: Device) {
     const rv: Widget[] = []
     let top = config.controlTop, left = config.controlLeft
     for (const p of device.parameters) {

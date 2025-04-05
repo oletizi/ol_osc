@@ -3,7 +3,7 @@ import {expect} from 'chai'
 
 describe('config', async () => {
         it('has sensible defaults', async () => {
-            const config = await newConfig()
+            const config = (await newConfig()).widgetConfig
             expect(config).to.exist
             expect(config.faderHeight)
             expect(config.controlWidth)
