@@ -10,11 +10,6 @@ export async function newServerConfig() {
     return {} as ServerConfig
 }
 
-export interface HostConfig {}
-export async function newHostConfig() {
-    return {} as HostConfig
-}
-
 export interface WidgetConfig {
     controlTop: number
     controlLeft: number
@@ -65,6 +60,18 @@ export async function newWidgetConfig() {
             return rv
         }
     } as WidgetConfig
+}
+
+export interface HostConfig {
+    getExecutablePath(): string
+}
+
+export async function newHostConfig() {
+    return {
+        getExecutablePath(): string {
+            return '/usr/local/bin/plughost'
+        }
+    } as HostConfig
 }
 
 export async function newConfig(dataDir: string = path.join(os.homedir(), '.ol_juce_host')) {

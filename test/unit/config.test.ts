@@ -3,12 +3,6 @@ import {expect} from 'chai'
 import * as tmp from 'tmp'
 import * as fs from 'fs/promises'
 
-describe('HostConfig', async () => {
-    it('exists', ()=>{
-        const config = newHostConfig()
-        expect(config).to.exist
-    })
-})
 
 describe('WidgetConfig', async () => {
         it('has sensible defaults', async () => {
@@ -31,6 +25,15 @@ describe('WidgetConfig', async () => {
         })
     }
 )
+
+describe('HostConfig', async () => {
+    it('exists', async () => {
+        const config = await newHostConfig()
+        expect(config).to.exist
+        expect(config.getExecutablePath()).to.exist
+        expect(config.getExecutablePath()).eq('/usr/local/bin/plughost')
+    })
+})
 
 describe('Config', function () {
     this.beforeAll(async () => {
