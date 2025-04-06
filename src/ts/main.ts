@@ -1,20 +1,21 @@
 import {Command} from 'commander'
 import {genWidgets, hydrateSpec} from '@/gen.js'
 import * as fs from 'fs/promises'
-import {newConfig} from '@/config.js'
+import {newWidgetConfig} from '@/config.js'
 import path from 'path'
 
 const program = new Command()
 program
     .description('Config generator for ol_juce_host.')
     .version('0.0.1')
+    .command('gen')
     .argument('<spec>')
-    .action(doSpec)
+    .action(genWidgetsFromSpec)
 program.parse(process.argv)
 
-async function doSpec(filePath: string) {
-    const config = await newConfig()
-    const spec = hydrateSpec((await fs.readFile(filePath)).toString())
+async function genWidgetsFromSpec(specFilePath: string) {
+    const config = await newWidgetConfig()
+    const spec = hydrateSpec((await fs.readFile(specFilePath)).toString())
     try {
         await fs.stat('build')
     } catch (e) {
