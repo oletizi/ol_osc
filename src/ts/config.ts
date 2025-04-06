@@ -10,6 +10,11 @@ export async function newServerConfig() {
     return {} as ServerConfig
 }
 
+export interface HostConfig {}
+export async function newHostConfig() {
+    return {} as HostConfig
+}
+
 export interface WidgetConfig {
     controlTop: number
     controlLeft: number
@@ -27,8 +32,12 @@ export interface WidgetConfig {
 
 export interface Config {
     getDataDir(): string
+
     getServerConfig(): ServerConfig
+
     getWidgetConfig(): WidgetConfig
+
+    getHostConfig(): HostConfig
 }
 
 
@@ -60,15 +69,25 @@ export async function newWidgetConfig() {
 
 export async function newConfig(dataDir: string = path.join(os.homedir(), '.ol_juce_host')) {
     const stats = await fs.stat(dataDir)
-    if (! stats.isDirectory()) {
+    if (!stats.isDirectory()) {
         throw new Error(`${dataDir} is not a directory.`)
     }
     const widgetConfig = await newWidgetConfig()
     const serverConfig = await newServerConfig()
+    const hostConfig = await newHostConfig()
     return {
-        getDataDir: () => {return dataDir},
-        getWidgetConfig: () => {return widgetConfig},
-        getServerConfig: () => {return serverConfig},
+        getDataDir: () => {
+            return dataDir
+        },
+        getWidgetConfig: () => {
+            return widgetConfig
+        },
+        getServerConfig: () => {
+            return serverConfig
+        },
+        getHostConfig: () => {
+            return hostConfig
+        }
     } as Config
 }
 

@@ -1,7 +1,14 @@
-import {newConfig, newWidgetConfig} from '@/config.js'
+import {newConfig, newHostConfig, newWidgetConfig} from '@/config.js'
 import {expect} from 'chai'
 import * as tmp from 'tmp'
 import * as fs from 'fs/promises'
+
+describe('HostConfig', async () => {
+    it('exists', ()=>{
+        const config = newHostConfig()
+        expect(config).to.exist
+    })
+})
 
 describe('WidgetConfig', async () => {
         it('has sensible defaults', async () => {
@@ -50,6 +57,13 @@ describe('Config', function () {
             // @ts-ignore
             expect(e.message).not.eq('Unexpected.')
         }
+    })
+    it('Has constituent configs', async () => {
+        const config = await newConfig()
+        expect(config).to.exist
+        expect(config.getWidgetConfig()).to.exist
+        expect(config.getServerConfig()).to.exist
+        expect(config.getHostConfig()).to.exist
     })
     it('Does the right thing.', async () => {
         const dataDir = tmp.dirSync()
