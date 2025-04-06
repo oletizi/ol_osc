@@ -2,6 +2,7 @@ import {type OscDocument, type Widget} from '@/gen.js'
 import path from 'path'
 import * as fs from 'fs/promises'
 import * as os from 'node:os'
+import {type HostConfig, newHostConfig} from '@/config-plughost.ts'
 
 export interface ServerConfig {
 }
@@ -62,17 +63,7 @@ export async function newWidgetConfig() {
     } as WidgetConfig
 }
 
-export interface HostConfig {
-    getExecutablePath(): string
-}
 
-export async function newHostConfig() {
-    return {
-        getExecutablePath(): string {
-            return '/usr/local/bin/plughost'
-        }
-    } as HostConfig
-}
 
 export async function newConfig(dataDir: string = path.join(os.homedir(), '.config', 'plughost')) {
     const stats = await fs.stat(dataDir)

@@ -1,7 +1,8 @@
-import {newConfig, newHostConfig, newWidgetConfig} from '@/config.js'
+import {newConfig, newWidgetConfig} from '@/config.js'
 import {expect} from 'chai'
 import * as tmp from 'tmp'
 import * as fs from 'fs/promises'
+import {newHostConfig} from '@/config-plughost.ts'
 
 
 describe('WidgetConfig', async () => {
