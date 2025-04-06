@@ -1,5 +1,6 @@
 import * as fs from 'fs/promises'
 import path from 'node:path'
+import * as tmp from 'tmp'
 import {genWidgets, hydrateSpec, hydrateWidgets} from '@/gen.js'
 import {expect} from 'chai'
 import {newConfig} from '@/config.js'
@@ -41,7 +42,8 @@ describe('gen basics', async () => {
         }
     })
     it('generates widgets', async () => {
-        const config = (await newConfig()).getWidgetConfig()
+        const tmpdir = tmp.dirSync()
+        const config = (await newConfig(tmpdir.name)).getWidgetConfig()
 
         const spec = hydrateSpec((await fs.readFile(path.join('test', 'data', 'spec.json'))).toString())
         expect(spec.devices.length).gte(1)

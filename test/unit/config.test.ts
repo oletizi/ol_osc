@@ -36,6 +36,7 @@ describe('HostConfig', async () => {
 })
 
 describe('Config', function () {
+    let tmpdir = tmp.dirSync()
     this.beforeAll(async () => {
         tmp.setGracefulCleanup()
     })
@@ -62,7 +63,7 @@ describe('Config', function () {
         }
     })
     it('Has constituent configs', async () => {
-        const config = await newConfig()
+        const config = await newConfig(tmpdir.name)
         expect(config).to.exist
         expect(config.getWidgetConfig()).to.exist
         expect(config.getServerConfig()).to.exist

@@ -74,7 +74,7 @@ export async function newHostConfig() {
     } as HostConfig
 }
 
-export async function newConfig(dataDir: string = path.join(os.homedir(), '.ol_juce_host')) {
+export async function newConfig(dataDir: string = path.join(os.homedir(), '.config', 'plughost')) {
     const stats = await fs.stat(dataDir)
     if (!stats.isDirectory()) {
         throw new Error(`${dataDir} is not a directory.`)
