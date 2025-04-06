@@ -1,4 +1,4 @@
-import {newServerConfig, newWidgetConfig} from '@/config.js'
+import {newConfig, newWidgetConfig} from '@/config.js'
 import {expect} from 'chai'
 import * as tmp from 'tmp'
 import * as fs from 'fs/promises'
@@ -25,12 +25,12 @@ describe('WidgetConfig', async () => {
     }
 )
 
-describe('ServerConfig', function () {
+describe('Config', function () {
     this.beforeAll(async () => {
         tmp.setGracefulCleanup()
     })
     it('Barfs if dataDir does not exist', async () => {
-        await newServerConfig('a directory that does not exist')
+        await newConfig('a directory that does not exist')
             .then(() => {
                 throw new Error('Unexpected.')
             })
@@ -43,7 +43,7 @@ describe('ServerConfig', function () {
         const stat = await fs.stat(bogus.name)
         expect(stat.isDirectory()).to.be.false
         try {
-            await newServerConfig(bogus.name)
+            await newConfig(bogus.name)
             // noinspection ExceptionCaughtLocallyJS
             throw new Error('Unexpected.')
         } catch (e) {
@@ -55,7 +55,10 @@ describe('ServerConfig', function () {
         const dataDir = tmp.dirSync()
         const stat = await fs.stat(dataDir.name)
         expect(stat.isDirectory()).to.be.true
-        const config = await newServerConfig(dataDir.name)
+        const config = await newConfig(dataDir.name)
         expect(config.dataDir).to.equal(dataDir.name)
+
+
     })
+
 })

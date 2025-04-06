@@ -4,7 +4,10 @@ import * as fs from 'fs/promises'
 import * as os from 'node:os'
 
 export interface ServerConfig {
-    dataDir: string
+}
+
+export async function newServerConfig() {
+    return {} as ServerConfig
 }
 
 export interface WidgetConfig {
@@ -23,19 +26,11 @@ export interface WidgetConfig {
 }
 
 export interface Config {
+    dataDir: string
     serverConfig: ServerConfig
     widgetConfig: WidgetConfig
 }
 
-export async function newServerConfig(dataDir: string = path.join(os.homedir(), '.ol_juce_host')) {
-    const stats = await fs.stat(dataDir)
-    if (! stats.isDirectory()) {
-        throw new Error(`${dataDir} is not a directory.`)
-    }
-    return {
-        dataDir: dataDir,
-    } as ServerConfig
-}
 
 export async function newWidgetConfig() {
     const oscTemplate = JSON.parse((await fs.readFile(path.join('src', 'open-stage-control', 'template.json'))).toString())
@@ -63,12 +58,18 @@ export async function newWidgetConfig() {
     } as WidgetConfig
 }
 
-export async function newConfig(dataDir?: string) {
+export async function newConfig(dataDir: string = path.join(os.homedir(), '.ol_juce_host')) {
+    const stats = await fs.stat(dataDir)
+    if (! stats.isDirectory()) {
+        throw new Error(`${dataDir} is not a directory.`)
+    }
     return {
-        serverConfig: await newServerConfig(dataDir),
-        widgetConfig: await newWidgetConfig()
+        dataDir: dataDir,
+        widgetConfig: await newWidgetConfig(),
+        serverConfig: await newServerConfig()
     } as Config
 }
+
 
 function deepCopy(obj: any) {
     return JSON.parse(JSON.stringify(obj))
