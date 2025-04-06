@@ -1,8 +1,9 @@
-import {type OscDocument, type Widget} from '@/gen.js'
+
 import path from 'path'
 import * as fs from 'fs/promises'
 import * as os from 'node:os'
 import {type HostConfig, newHostConfig} from '@/config-plughost.ts'
+import type {OscDocument, Widget} from '@/model.ts'
 
 export interface ServerConfig {
 }

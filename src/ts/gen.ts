@@ -1,40 +1,11 @@
 import type {WidgetConfig} from '@/config.js'
+import type {Device, Spec, Widget} from '@/model.ts'
 
-export interface Widget {
-    type: string
-    id: string
-    value: string
-    top: number
-    left: number
-}
-
-export interface OscDocument {
-    content: {
-        widgets: Widget[]
-    }
-}
 
 export function hydrateWidgets(json: string) {
     return JSON.parse(json) as Widget[]
 }
 
-export interface Parameter {
-    name: string
-    description?: string
-    osc: string
-    label: string
-    type: string
-}
-
-export interface Device {
-    name: string
-    id: string
-    parameters: Parameter[]
-}
-
-export interface Spec {
-    devices: Device[]
-}
 
 export function hydrateSpec(json: string): Spec {
     return JSON.parse(json) as Spec
