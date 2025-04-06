@@ -26,9 +26,9 @@ export interface WidgetConfig {
 }
 
 export interface Config {
-    dataDir: string
-    serverConfig: ServerConfig
-    widgetConfig: WidgetConfig
+    getDataDir(): string
+    getServerConfig(): ServerConfig
+    getWidgetConfig(): WidgetConfig
 }
 
 
@@ -63,10 +63,12 @@ export async function newConfig(dataDir: string = path.join(os.homedir(), '.ol_j
     if (! stats.isDirectory()) {
         throw new Error(`${dataDir} is not a directory.`)
     }
+    const widgetConfig = await newWidgetConfig()
+    const serverConfig = await newServerConfig()
     return {
-        dataDir: dataDir,
-        widgetConfig: await newWidgetConfig(),
-        serverConfig: await newServerConfig()
+        getDataDir: () => {return dataDir},
+        getWidgetConfig: () => {return widgetConfig},
+        getServerConfig: () => {return serverConfig},
     } as Config
 }
 

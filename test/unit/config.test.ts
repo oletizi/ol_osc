@@ -56,9 +56,7 @@ describe('Config', function () {
         const stat = await fs.stat(dataDir.name)
         expect(stat.isDirectory()).to.be.true
         const config = await newConfig(dataDir.name)
-        expect(config.dataDir).to.equal(dataDir.name)
-
-
+        expect(config.getDataDir()).to.equal(dataDir.name)
     })
 
 })

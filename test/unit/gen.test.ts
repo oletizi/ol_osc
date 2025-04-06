@@ -41,7 +41,7 @@ describe('gen basics', async () => {
         }
     })
     it('generates widgets', async () => {
-        const config = (await newConfig()).widgetConfig
+        const config = (await newConfig()).getWidgetConfig()
 
         const spec = hydrateSpec((await fs.readFile(path.join('test', 'data', 'spec.json'))).toString())
         expect(spec.devices.length).gte(1)
