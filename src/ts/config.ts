@@ -4,6 +4,7 @@ import * as fs from 'fs/promises'
 import * as os from 'node:os'
 
 export interface ServerConfig {
+    dataDir: string
 }
 
 export interface WidgetConfig {
@@ -31,7 +32,9 @@ export async function newServerConfig(dataDir: string = path.join(os.homedir(), 
     if (! stats.isDirectory()) {
         throw new Error(`${dataDir} is not a directory.`)
     }
-    return {} as ServerConfig
+    return {
+        dataDir: dataDir,
+    } as ServerConfig
 }
 
 export async function newWidgetConfig() {

@@ -51,7 +51,11 @@ describe('ServerConfig', function () {
             expect(e.message).not.eq('Unexpected.')
         }
     })
-    it('has sensible defaults', async () => {
-
+    it('Does the right thing.', async () => {
+        const dataDir = tmp.dirSync()
+        const stat = await fs.stat(dataDir.name)
+        expect(stat.isDirectory()).to.be.true
+        const config = await newServerConfig(dataDir.name)
+        expect(config.dataDir).to.equal(dataDir.name)
     })
 })
