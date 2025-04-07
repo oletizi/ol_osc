@@ -26,8 +26,12 @@
     "@astrojs/react": "^4.2.3",
     "@oletizi/lib-runtime": "^1.0.3",
     "@oletizi/sampler-lib": "^1.0.9",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.1",
     "commander": "^13.1.0",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@types/chai": "^5.2.1",

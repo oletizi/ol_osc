@@ -1,8 +1,6 @@
 {
-  /* https://www.totaltypescript.com/tsconfig-cheat-sheet */
   "extends": "astro/tsconfigs/base",
   "compilerOptions": {
-    /* Base Options: */
     "esModuleInterop": true,
     "skipLibCheck": true,
     "target": "es2022",
@@ -11,28 +9,24 @@
     "moduleDetection": "force",
     "isolatedModules": true,
     "verbatimModuleSyntax": true,
-
-    /* Strictness */
     "strict": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-
-    /* If transpiling with TypeScript: */
     "module": "NodeNext",
     "outDir": "dist",
     "sourceMap": true,
-
-    /* AND if you're building for a library: */
     "declaration": true,
-
-    /* AND if you're building for a library in a monorepo: */
     "composite": true,
     "declarationMap": true,
-
-    /* If your code doesn't run in the DOM: */
-    "lib": ["es2022"],
+    "lib": [
+      "es2022"
+    ],
     "paths": {
-      "@/*": ["./src/ts/*"]
-    }
+      "@/*": [
+        "./src/ts/*"
+      ]
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
   }
 }
