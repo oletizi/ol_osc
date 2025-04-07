@@ -4,10 +4,10 @@ import type {Device} from '@/model.ts'
 import * as fs from 'fs/promises'
 
 export async function update(config: Config): Promise<Config> {
-    const hostConfig = config.getHostConfig()
+    const hostConfig = config.hostConfig
     const availablePlugins: Device[] = []
     let currentPlugin: Device | null = null
-    await execute(hostConfig.getExecutablePath(), ['--list'], {
+    await execute(hostConfig.executablePath, ['--list'], {
         onData(buf: Buffer): void {
             const line = buf.toString()
             if (line.startsWith('Plugin:')) {
@@ -29,10 +29,10 @@ export async function update(config: Config): Promise<Config> {
         onStart(): void {
         }
     })
-    const available =hostConfig.getAvailableResources()
+    const available =hostConfig.availableResources
     available.plugins = availablePlugins
-    await fs.writeFile(hostConfig.getAvailableResourcesConfigPath(), JSON.stringify(available), 'utf8')
-    return newConfig(config.getDataDir())
+    await fs.writeFile(hostConfig.availableResourcesConfigPath, JSON.stringify(available), 'utf8')
+    return newConfig(config.dataDir)
 }
 
 function normalize(name: string) {
