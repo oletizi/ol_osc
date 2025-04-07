@@ -20,6 +20,13 @@ export interface Parameter {
     type: string
 }
 
+export interface AvailableResources {
+    audioInputDevices: Device[]
+    audioOutputDevices: Device[]
+    midiInputDevices: Device[]
+    plugins: Device[]
+}
+
 export interface Device {
     name: string
     id: string

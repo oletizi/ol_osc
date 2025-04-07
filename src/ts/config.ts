@@ -73,7 +73,7 @@ export async function newConfig(dataDir: string = path.join(os.homedir(), '.conf
     }
     const widgetConfig = await newWidgetConfig()
     const serverConfig = await newServerConfig()
-    const hostConfig = await newHostConfig()
+    const hostConfig = await newHostConfig(dataDir)
     return {
         getDataDir: () => {
             return dataDir

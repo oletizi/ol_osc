@@ -1,6 +1,7 @@
 import {type Config, newConfig} from '@/config.ts'
 import {execute} from '@oletizi/lib-runtime'
 import type {Device} from '@/model.ts'
+import * as fs from 'fs/promises'
 
 export async function update(config: Config): Promise<Config> {
     const hostConfig = config.getHostConfig()
@@ -17,14 +18,20 @@ export async function update(config: Config): Promise<Config> {
             } else if (line.startsWith('Plugin Parameter:')) {
                 const name = parseArg(line, 'Name')
                 currentPlugin?.parameters.push({
-                    description: 'UNKNOWN', label: 'UNKNOWN', name: parseArg(line, 'Parameter Name'), osc: normalize(name), type: ''
+                    description: 'UNKNOWN',
+                    label: 'UNKNOWN',
+                    name: parseArg(line, 'Parameter Name'),
+                    osc: normalize(name),
+                    type: ''
                 })
             }
         },
         onStart(): void {
         }
     })
-    console.log(availablePlugins)
+    const available =hostConfig.getAvailableResources()
+    available.plugins = availablePlugins
+    await fs.writeFile(hostConfig.getAvailableResourcesConfigPath(), JSON.stringify(available), 'utf8')
     return newConfig(config.getDataDir())
 }
 

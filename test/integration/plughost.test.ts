@@ -7,6 +7,8 @@ describe('plughost', async () => {
         this.timeout(30 * 1000)
         const config = (await update(await newConfig())).getHostConfig()
         expect(config).to.exist
-        expect(config.getAvailablePlugins().length).gte(1)
+        expect(config.getAvailableResources()).to.exist
+        expect(config.getAvailableResources().plugins).to.exist
+        expect(config.getAvailableResources().plugins.length).gte(1)
     })
 })
