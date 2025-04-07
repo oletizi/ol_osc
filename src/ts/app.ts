@@ -12,13 +12,12 @@ app.get('/api/hello', (_req: Request, res: Response) => {
 })
 
 app.get('/api/config', async (_req: Request, res: Response) => {
-    console.log(`/api/config`)
-    const config = await newConfig()
-    console.log(`Config: ${JSON.stringify(config)}`)
+    let data = {}, errors = []
+    try { data = await newConfig() } catch (e) { errors.push(e) }
     res.send({
             timestamp: Date.now(),
-            errors: [],
-            data: config
+            errors: errors,
+            data: data
         }
     )
 })
