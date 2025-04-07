@@ -74,7 +74,7 @@ export async function newHostConfig(dataPath: string = path.join(os.homedir(), '
 
 export async function saveHostConfig(h: HostConfig) {
     const toSave = deepCopy(h)
-    await fs.writeFile(getAvailableResourcesConfigPath(h.dataPath), JSON.stringify(toSave.availableResources), 'utf8')
+    await fs.writeFile(getAvailableResourcesConfigPath(toSave.dataPath), JSON.stringify(toSave.availableResources), 'utf8')
     toSave.availableResources = {}
-    await fs.writeFile(getHostConfigPath(h.dataPath), JSON.stringify(toSave), 'utf8')
+    await fs.writeFile(getHostConfigPath(toSave.dataPath), JSON.stringify(toSave), 'utf8')
 }

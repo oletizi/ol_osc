@@ -1,4 +1,4 @@
-import {newHostConfig} from '@/config-plughost.ts'
+import {newHostConfig, saveHostConfig} from '@/config-plughost.ts'
 import {expect} from 'chai'
 import tmp, {type DirResult} from 'tmp'
 import path from 'path'
@@ -48,5 +48,15 @@ describe('config-plughost', async () => {
         // @ts-ignore
         expect(available.plugins[0].name).to.equal(device.name)
 
+    })
+    it('saves and loads state', async () => {
+        const c = await newHostConfig(path.join(tmpDir.name, String(new Date().getTime())))
+        expect(c).to.exist
+        c.audioInputDevice = {id: 'the-audio-input-device', name: '', parameters: [], type: ''}
+        await saveHostConfig(c)
+        const c2 = await newHostConfig(c.dataPath)
+        expect(c2).to.exist
+        expect(c2.audioInputDevice).to.exist
+        expect(c2.audioInputDevice.id).eq(c.audioInputDevice.id)
     })
 })

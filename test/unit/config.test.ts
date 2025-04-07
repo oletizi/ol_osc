@@ -1,8 +1,9 @@
-import {newConfig, newWidgetConfig} from '@/config.js'
+import {newConfig, newWidgetConfig, saveConfig} from '@/config.js'
 import {expect} from 'chai'
 import * as tmp from 'tmp'
 import * as fs from 'fs/promises'
 import {newHostConfig} from '@/config-plughost.ts'
+import type {DirResult} from 'tmp'
 
 
 describe('WidgetConfig', async () => {
@@ -35,10 +36,16 @@ describe('HostConfig', async () => {
 })
 
 describe('Config', function () {
-    let tmpdir = tmp.dirSync()
+    let tmpdir: DirResult
+
     this.beforeAll(async () => {
         tmp.setGracefulCleanup()
     })
+
+    this.beforeEach(async () => {
+        tmpdir = tmp.dirSync()
+    })
+
     it('Barfs if dataDir does not exist', async () => {
         await newConfig('a directory that does not exist')
             .then(() => {
@@ -48,6 +55,7 @@ describe('Config', function () {
                 expect(e.message).not.eq('Unexpected.')
             })
     })
+
     it(`Barfs if dataDir is not a directory.`, async () => {
         const bogus = tmp.fileSync()
         const stat = await fs.stat(bogus.name)
@@ -61,6 +69,7 @@ describe('Config', function () {
             expect(e.message).not.eq('Unexpected.')
         }
     })
+
     it('Has constituent configs', async () => {
         const config = await newConfig(tmpdir.name)
         expect(config).to.exist
@@ -68,12 +77,21 @@ describe('Config', function () {
         expect(config.serverConfig).to.exist
         expect(config.hostConfig).to.exist
     })
+
     it('Does the right thing.', async () => {
         const dataDir = tmp.dirSync()
         const stat = await fs.stat(dataDir.name)
         expect(stat.isDirectory()).to.be.true
         const config = await newConfig(dataDir.name)
         expect(config.dataDir).to.equal(dataDir.name)
+    })
+
+    it('Saves and loads state', async () => {
+        const c = await newConfig(tmpdir.name)
+        c.hostConfig.audioInputDevice = {id: 'test-host-config', name: '', parameters: [], type: ''}
+        const c2 = await saveConfig(c)
+        expect(c2).to.exist
+        expect(c2.hostConfig.audioInputDevice.id).to.equal(c.hostConfig.audioInputDevice.id)
     })
 
 })
