@@ -7,19 +7,23 @@ const app = express()
 app.use(express.json())
 
 
-app.get('/api/hello', (req: Request, res: Response) => {
+app.get('/api/hello', (_req: Request, res: Response) => {
     res.send({msg: 'Hello World!'})
 })
 
-app.get('/api/config', async (req: Request, res: Response) => {
+app.get('/api/config', async (_req: Request, res: Response) => {
+    console.log(`/api/config`)
+    const config = await newConfig()
+    console.log(`Config: ${JSON.stringify(config)}`)
     res.send({
             timestamp: Date.now(),
-            config: await newConfig()
+            errors: [],
+            data: config
         }
     )
 })
 
-app.post('/api/config/update', async (req: Request, res: Response) => {
+app.post('/api/config/update', async (_req: Request, res: Response) => {
     res.send({
         config: await updateAvailableResources(await newConfig()),
         timestamp: Date.now(),
