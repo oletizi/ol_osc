@@ -1,15 +1,13 @@
 import path from 'path'
 import * as fs from 'fs/promises'
 import * as os from 'node:os'
-import {type HostConfig, newHostConfig} from '@/config-plughost.ts'
+import {type HostConfig, newHostConfig, saveHostConfig} from '@/config-plughost.ts'
 import type {OscDocument, Widget} from '@/model.ts'
+import {deepCopy} from '@/lib.ts'
 
 export interface ServerConfig {
 }
 
-export async function newServerConfig() {
-    return {} as ServerConfig
-}
 
 export interface WidgetConfig {
     controlTop: number
@@ -36,6 +34,11 @@ export interface Config {
     hostConfig: HostConfig
 }
 
+export async function newServerConfig() {
+    return {} as ServerConfig
+}
+
+export async function saveServerConfig(s: ServerConfig) {}
 
 export async function newWidgetConfig() {
     const oscTemplate = JSON.parse((await fs.readFile(path.join('src', 'open-stage-control', 'template.json'))).toString())
@@ -63,6 +66,8 @@ export async function newWidgetConfig() {
     } as WidgetConfig
 }
 
+export async function saveWidgetConfig(w: WidgetConfig) {
+}
 
 export async function newConfig(dataDir: string = path.join(os.homedir(), '.config', 'plughost')) {
     const stats = await fs.stat(dataDir)
@@ -77,11 +82,13 @@ export async function newConfig(dataDir: string = path.join(os.homedir(), '.conf
         widgetConfig: widgetConfig,
         serverConfig: serverConfig,
         hostConfig: hostConfig
-
     } as Config
 }
 
-
-function deepCopy(obj: any) {
-    return JSON.parse(JSON.stringify(obj))
+export async function saveConfig(config: Config): Promise<Config> {
+    await saveHostConfig(config.hostConfig)
+    await saveWidgetConfig(config.widgetConfig)
+    await saveServerConfig(config.serverConfig)
+    return newConfig(config.dataDir)
 }
+

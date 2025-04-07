@@ -4,7 +4,6 @@ import {updateAvailableResources} from '@/plughost.ts'
 
 const port = 3000
 const app = express()
-let config = await newConfig()
 app.use(express.json())
 
 
@@ -12,10 +11,10 @@ app.get('/api/hello', (req: Request, res: Response) => {
     res.send({msg: 'Hello World!'})
 })
 
-app.get('/api/config', (req: Request, res: Response) => {
+app.get('/api/config', async (req: Request, res: Response) => {
     res.send({
             timestamp: Date.now(),
-            config: config
+            config: await newConfig()
         }
     )
 })

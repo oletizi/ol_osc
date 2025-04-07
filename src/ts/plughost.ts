@@ -1,7 +1,6 @@
-import {type Config, newConfig} from '@/config.ts'
+import {type Config, saveConfig} from '@/config.ts'
 import {execute} from '@oletizi/lib-runtime'
 import type {Device} from '@/model.ts'
-import * as fs from 'fs/promises'
 
 export async function updateAvailableResources(config: Config): Promise<Config> {
     const hostConfig = config.hostConfig
@@ -31,8 +30,7 @@ export async function updateAvailableResources(config: Config): Promise<Config> 
     })
     const available = hostConfig.availableResources
     available.plugins = availablePlugins
-    await fs.writeFile(hostConfig.availableResourcesConfigPath, JSON.stringify(available), 'utf8')
-    return newConfig(config.dataDir)
+    return saveConfig(config)
 }
 
 function normalize(name: string) {

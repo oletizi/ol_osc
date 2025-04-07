@@ -22,11 +22,8 @@ describe('config-plughost', async () => {
 
     it('has sensible defaults', async () => {
         let config = await newHostConfig(tmpDir.name)
-        console.log(`available path: ${config.availableResourcesConfigPath}`)
         expect(config).to.exist
         expect(config.executablePath).to.exist
-        expect(config.availableResourcesConfigPath).to.exist
-        expect(config.availableResourcesConfigPath.startsWith(tmpDir.name))
         expect(config.availableResources).to.exist
         expect(config.activePluginChain).to.exist
         expect(config.audioInputDevice).to.exist
@@ -41,7 +38,7 @@ describe('config-plughost', async () => {
 
         const device = {id: 'mock-device', name: 'Mock Device', parameters: [], type: 'Mock Plugin'}
         available.plugins.push(device)
-        await fs.writeFile(config.availableResourcesConfigPath, JSON.stringify(available, null, 2))
+        await fs.writeFile(path.join(tmpDir.name, 'available.json'), JSON.stringify(available, null, 2))
         config = await newHostConfig(tmpDir.name)
         expect(config).to.exist
         expect(config.availableResources).to.exist

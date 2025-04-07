@@ -31,8 +31,6 @@ describe('HostConfig', async () => {
     it('exists', async () => {
         const config = await newHostConfig()
         expect(config).to.exist
-        expect(config.getExecutablePath()).to.exist
-        expect(config.getExecutablePath()).eq('/usr/local/bin/plughost')
     })
 })
 
