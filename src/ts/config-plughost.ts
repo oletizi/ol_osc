@@ -4,21 +4,21 @@ import path from 'path'
 import * as fs from 'fs/promises'
 
 export interface HostConfig {
-    getDataPath(): string
+    dataPath: string
 
-    getExecutablePath(): string
+    executablePath: string
 
-    getAvailableResourcesConfigPath(): string
+    availableResourcesConfigPath: string
 
-    getAudioInputDevice(): Device
+    audioInputDevice: Device
 
-    getAudioOutputDevice(): Device
+    audioOutputDevice: Device
 
-    getMidiInputDevice(): Device
+    midiInputDevice: Device
 
-    getAvailableResources(): AvailableResources
+    availableResources: AvailableResources
 
-    getActivePluginChain(): Device[]
+    activePluginChain: Device[]
 }
 
 export async function newHostConfig(dataPath: string = path.join(os.homedir(), '.config', 'plughost')): Promise<HostConfig> {
@@ -43,27 +43,13 @@ export async function newHostConfig(dataPath: string = path.join(os.homedir(), '
     }
 
     return {
-        getAvailableResourcesConfigPath(): string {
-            return availableResourcesConfigPath
-        },
-        getDataPath(): string {
-            return dataPath
-        },
-        getActivePluginChain(): Device[] {
-            return []
-        },
-        getAvailableResources(): AvailableResources {
-            return availableResources
-        },
-        getAudioInputDevice(): Device {
-            return {type: 'UNKOWN', id: 'UNKOWN', name: 'UNKNOWN', parameters: []}
-        }, getAudioOutputDevice(): Device {
-            return {type: 'UNKNOWN', id: 'UNKNOWN', name: 'UNKNOWN', parameters: []}
-        }, getMidiInputDevice(): Device {
-            return {type: 'UNKOWN', id: 'UNKNOWN', name: 'UNKNOWN', parameters: []}
-        },
-        getExecutablePath(): string {
-            return '/usr/local/bin/plughost'
-        }
+        availableResourcesConfigPath: availableResourcesConfigPath,
+        dataPath: dataPath,
+        activePluginChain: [],
+        availableResources: availableResources,
+        audioInputDevice: {type: 'UNKOWN', id: 'UNKOWN', name: 'UNKNOWN', parameters: []},
+        audioOutputDevice: {type: 'UNKNOWN', id: 'UNKNOWN', name: 'UNKNOWN', parameters: []},
+        midiInputDevice: {type: 'UNKOWN', id: 'UNKNOWN', name: 'UNKNOWN', parameters: []},
+        executablePath: '/usr/local/bin/plughost'
     }
 }
