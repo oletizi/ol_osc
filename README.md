@@ -3,9 +3,13 @@ Management interfaces for [plughost](https://github.com/oletizi/ol_dsp/tree/main
 
 TODO:
 - [ ] Plugin host device configuration
-   - [ ] Update available plugins
-   - [ ] Configure and update active plugin chain(s)
-   - [ ] Preset plugin chains
-   - [ ] plughost lifecycle
+  - [x] Update available plugins
+  - [ ] Configure audio in/out and midi devices
+  - [ ] Preset plugin chains
+- [ ] Web interface
+  - [ ] Show available devices
+  - [ ] Configure active devices
+  - [ ] Configure and update active plugin chain(s)
+- [ ] plughost lifecycle
 - [ ] Per-plugin OSC controller generation (partly done)
 - [ ] OSC controller lifecycle

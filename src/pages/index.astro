@@ -1,6 +1,11 @@
 ---
 import BasicLayout from '../layouts/BasicLayout.astro'
+import {newClient} from '../ts/client'
+const client =  newClient(new URL("/api", 'http://localhost:3000'))
+const config = await client.getConfig()
 ---
 <BasicLayout title="Hello">
     <h1>Hello!</h1>
+    <h2>Config</h2>
+    <pre>{JSON.stringify(config, null, 2)}</pre>
 </BasicLayout>

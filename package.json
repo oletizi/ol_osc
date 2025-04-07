@@ -23,6 +23,7 @@
   "author": "Orion Letizi",
   "license": "ISC",
   "dependencies": {
+    "@astrojs/react": "^4.2.3",
     "@oletizi/lib-runtime": "^1.0.3",
     "@oletizi/sampler-lib": "^1.0.9",
     "commander": "^13.1.0",
