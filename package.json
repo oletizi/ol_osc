@@ -9,9 +9,9 @@
   },
   "scripts": {
     "test": "c8 mocha 'test/unit/**/*.test.{js,ts,tsx}'",
+    "gen": "tsx src/ts/main.ts gen src/spec/spec.all.json",
     "server": "tsx src/ts/app.ts",
     "dev:server": "tsx watch src/ts/app.ts",
-    "gen": "tsx src/ts/main.ts gen src/spec/spec.all.json",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview"

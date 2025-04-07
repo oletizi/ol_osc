@@ -66,16 +66,16 @@ describe('Config', function () {
     it('Has constituent configs', async () => {
         const config = await newConfig(tmpdir.name)
         expect(config).to.exist
-        expect(config.getWidgetConfig()).to.exist
-        expect(config.getServerConfig()).to.exist
-        expect(config.getHostConfig()).to.exist
+        expect(config.widgetConfig).to.exist
+        expect(config.serverConfig).to.exist
+        expect(config.hostConfig).to.exist
     })
     it('Does the right thing.', async () => {
         const dataDir = tmp.dirSync()
         const stat = await fs.stat(dataDir.name)
         expect(stat.isDirectory()).to.be.true
         const config = await newConfig(dataDir.name)
-        expect(config.getDataDir()).to.equal(dataDir.name)
+        expect(config.dataDir).to.equal(dataDir.name)
     })
 
 })

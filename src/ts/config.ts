@@ -1,4 +1,3 @@
-
 import path from 'path'
 import * as fs from 'fs/promises'
 import * as os from 'node:os'
@@ -28,13 +27,13 @@ export interface WidgetConfig {
 }
 
 export interface Config {
-    getDataDir(): string
+    dataDir: string
 
-    getServerConfig(): ServerConfig
+    serverConfig: ServerConfig
 
-    getWidgetConfig(): WidgetConfig
+    widgetConfig: WidgetConfig
 
-    getHostConfig(): HostConfig
+    hostConfig: HostConfig
 }
 
 
@@ -65,7 +64,6 @@ export async function newWidgetConfig() {
 }
 
 
-
 export async function newConfig(dataDir: string = path.join(os.homedir(), '.config', 'plughost')) {
     const stats = await fs.stat(dataDir)
     if (!stats.isDirectory()) {
@@ -75,18 +73,11 @@ export async function newConfig(dataDir: string = path.join(os.homedir(), '.conf
     const serverConfig = await newServerConfig()
     const hostConfig = await newHostConfig(dataDir)
     return {
-        getDataDir: () => {
-            return dataDir
-        },
-        getWidgetConfig: () => {
-            return widgetConfig
-        },
-        getServerConfig: () => {
-            return serverConfig
-        },
-        getHostConfig: () => {
-            return hostConfig
-        }
+        dataDir: dataDir,
+        widgetConfig: widgetConfig,
+        serverConfig: serverConfig,
+        hostConfig: hostConfig
+
     } as Config
 }
 
