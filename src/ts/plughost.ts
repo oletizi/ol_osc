@@ -3,7 +3,7 @@ import {execute} from '@oletizi/lib-runtime'
 import type {Device} from '@/model.ts'
 import * as fs from 'fs/promises'
 
-export async function update(config: Config): Promise<Config> {
+export async function updateAvailableResources(config: Config): Promise<Config> {
     const hostConfig = config.hostConfig
     const availablePlugins: Device[] = []
     let currentPlugin: Device | null = null
@@ -29,7 +29,7 @@ export async function update(config: Config): Promise<Config> {
         onStart(): void {
         }
     })
-    const available =hostConfig.availableResources
+    const available = hostConfig.availableResources
     available.plugins = availablePlugins
     await fs.writeFile(hostConfig.availableResourcesConfigPath, JSON.stringify(available), 'utf8')
     return newConfig(config.dataDir)

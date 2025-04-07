@@ -1,5 +1,6 @@
 import express, {type Request, type Response} from 'express'
 import {newConfig} from '@/config.ts'
+import {updateAvailableResources} from '@/plughost.ts'
 
 const port = 3000
 const app = express()
@@ -17,6 +18,13 @@ app.get('/api/config', (req: Request, res: Response) => {
             config: config
         }
     )
+})
+
+app.post('/api/config/update', async (req: Request, res: Response) => {
+    res.send({
+        config: await updateAvailableResources(await newConfig()),
+        timestamp: Date.now(),
+    })
 })
 
 app.listen(port, () => {
