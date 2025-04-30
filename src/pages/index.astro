@@ -1,10 +1,7 @@
 ---
 import BasicLayout from '../layouts/BasicLayout.astro'
-import {newClient} from '../ts/plughost-client'
 import {ConfigDisplay} from '../components/ConfigDisplay'
-// const c = await newClient(new URL('/api', 'http://localhost:3000'))
 const endpoint = new URL('/api', 'http://localhost:3000')
-
 ---
 <BasicLayout title="Hello">
     <h1>Hello!</h1>
