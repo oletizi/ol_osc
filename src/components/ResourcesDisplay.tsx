@@ -24,7 +24,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     })
     return (<div className="flex gap-4">
         <AvailablePluginsDisplay available={config ? config.hostConfig.availableResources.plugins : []}/>
-        <ChosenPluginsDisplay endpoint={endpoint}/>
+        <ChosenPluginsDisplay chosen={config ? config.hostConfig.activePluginChain : []}/>
     </div>)
 }
 
@@ -44,31 +44,20 @@ function AvailablePluginsDisplay({available}: { available: Device[] }) {
     )
 }
 
-function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
-    const [config, setConfig] = useState<Config | null>()
-    const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
-    useEffect(() => {
-        if (!config) {
-            newClient(endpoint).then(client => client.getConfig().then(result => {
-                const config = result.data
-                if (config) {
-                    setConfig(config)
-                    setChosenPlugins(config.hostConfig.activePluginChain)
-                }
-            }))
-
-        }
-    })
+function ChosenPluginsDisplay({chosen}: { chosen: Device[] }) {
     return (<Card>
-        <CardHeader>
-            <CardTitle>Active Plugin Chain</CardTitle>
-            <CardDescription>The plugins you want to run.</CardDescription>
-        </CardHeader>
-        <CardContent>
-            {chosenPlugins ? (
-                <ul className="min-w-50">{chosenPlugins.length ? chosenPlugins.map(p => (<li>{p.name}</li>)) : (
-                    <li>None yet.</li>)}</ul>) : 'Yikes.'}
-        </CardContent>
-        <CardFooter><Button>Apply</Button></CardFooter>
-    </Card>)
+            <CardHeader>
+                <CardTitle>Active Plugin Chain</CardTitle>
+                <CardDescription>The plugins you want to run.</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ul className="min-w-50">
+                    {chosen.length ?
+                        chosen.map(p => (<li>{p.name}</li>))
+                        : (<li>None yet.</li>)}
+                </ul>
+            </CardContent>
+            <CardFooter><Button>Apply</Button></CardFooter>
+        </Card>
+    )
 }
