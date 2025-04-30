@@ -1,14 +1,14 @@
 ---
 import BasicLayout from '../layouts/BasicLayout.astro'
-import {newClient} from '../ts/client'
-const client = newClient(new URL('/api', 'http://localhost:3000'))
-const configResult = await client.getConfig()
+import {newClient} from '../ts/plughost-client'
+import {ConfigDisplay} from '../components/ConfigDisplay'
+// const c = await newClient(new URL('/api', 'http://localhost:3000'))
+const endpoint = new URL('/api', 'http://localhost:3000')
+
 ---
 <BasicLayout title="Hello">
     <h1>Hello!</h1>
-    <h2>ConfigResult:</h2>
-    <div>Errors ({configResult.errors.length}): {configResult.errors.map((e) => {
-        e?.toString()
-    }).join(',')}</div>
-    <pre>{JSON.stringify(configResult, null, 2)}</pre>
+    <p>Client display follows...</p>
+    <ConfigDisplay client:only="react" endpoint={endpoint} />
+    <p>Client display precedes.</p>
 </BasicLayout>

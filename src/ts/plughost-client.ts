@@ -5,15 +5,15 @@ export interface ConfigResult {
     data: null | Config
 }
 
-export interface Client {
+export interface PlughostClient {
     getConfig(): Promise<ConfigResult>
 }
 
-export function newClient(endpoint: URL) {
+export async function newClient(endpoint: URL) : Promise<PlughostClient> {
     return new BasicClient(endpoint)
 }
 
-class BasicClient implements Client {
+class BasicClient implements PlughostClient {
     private readonly endpoint: URL
 
     constructor(endpoint: URL) {
@@ -26,7 +26,7 @@ class BasicClient implements Client {
 }
 
 async function get(endpoint: URL) : Promise<{data: any, errors: Error[]}> {
-    const res = await fetch(endpoint, {})
+    const res = await fetch(endpoint, {mode: 'cors'})
     const rv = {
         data: null,
         errors: [] as Error[]
@@ -36,6 +36,7 @@ async function get(endpoint: URL) : Promise<{data: any, errors: Error[]}> {
         rv.data = data.data
         rv.errors = rv.errors.concat(data.errors)
     } else {
+        console.error(`Error fetching ${endpoint}: ${res.status}: ${res.statusText}`)
         rv.errors.push(new Error(res.status + ': ' + res.statusText))
     }
     return rv
