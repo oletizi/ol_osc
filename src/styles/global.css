@@ -31,6 +31,7 @@ pre {
     font-size: .8rem;
 }
 
+
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -146,3 +147,14 @@ pre {
     @apply bg-background text-foreground;
     }
 }
+
+/*.picklist {*/
+/*    border: 1px solid var(--border);*/
+/*}*/
+/*.picklist-item {*/
+/*    font-size: .8rem;*/
+/*    padding: .25rem 1rem .25rem 1rem;*/
+/*}*/
+/*.picklist-item:hover {*/
+/*    background-color: var(--secondary);*/
+/*}*/

@@ -34,8 +34,8 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
             </CardHeader>
             <CardContent>
                 {config ?
-                    <ul className="max-h-50 overflow-auto">{config.hostConfig.availableResources.plugins.map(p => (
-                        <li>{p.name}</li>))}</ul> : ''}
+                    <ul className="radius border-1 border-secondary shadow-inner max-h-50 overflow-auto">{config.hostConfig.availableResources.plugins.map(p => (
+                        <li className="text-sm px-4 py-1 hover:bg-secondary cursor-default">{p.name}</li>))}</ul> : ''}
             </CardContent>
             <CardFooter><Button>Apply</Button></CardFooter>
         </Card>
