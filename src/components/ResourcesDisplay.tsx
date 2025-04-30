@@ -11,24 +11,33 @@ import {useEffect, useState} from 'react'
 import type {Config} from '@/config.ts'
 import {newClient} from '@/plughost-client.ts'
 import {Button} from '@/components/ui/button.tsx'
-import {Checkbox} from '@/components/ui/checkbox'
 import type {Device} from '@/model.ts'
-
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
+    const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
     useEffect(() => {
         if (!config) {
-            newClient(endpoint).then(client => client.getConfig().then(c => setConfig(c.data)))//fetchConfig(endpoint, setConfig)
+            newClient(endpoint).then(client => client.getConfig().then(c => {
+                setConfig(c.data)
+                if (c.data) {
+                    setChosenPlugins(c.data?.hostConfig?.activePluginChain)
+                }
+            }))
         }
     })
+    const availablePlugins: Device[] = config ? config.hostConfig.availableResources.plugins : []
+    const onChosen = (device: Device) => {
+        setChosenPlugins(chosenPlugins.concat([device]))
+    }
     return (<div className="flex gap-4">
-        <AvailablePluginsDisplay available={config ? config.hostConfig.availableResources.plugins : []}/>
-        <ChosenPluginsDisplay chosen={config ? config.hostConfig.activePluginChain : []}/>
+        <AvailablePluginsDisplay available={availablePlugins} onChosen={onChosen}/>
+        <ChosenPluginsDisplay chosen={chosenPlugins}/>
     </div>)
 }
 
-function AvailablePluginsDisplay({available}: { available: Device[] }) {
+function AvailablePluginsDisplay({available, onChosen}: { available: Device[], onChosen: (d: Device) => void }) {
+    let counter = 0
     return (<Card>
             <CardHeader>
                 <CardTitle>Available Plugins</CardTitle>
@@ -37,14 +46,17 @@ function AvailablePluginsDisplay({available}: { available: Device[] }) {
             <CardContent>
                 <ul className="radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto">
                     {available.map(p => (
-                        <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2">
-                            <Checkbox/> {p.name}</li>))}</ul>
+                        <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2"
+                            key={counter++}
+                            onClick={() => onChosen(p)}>
+                            {p.name}</li>))}</ul>
             </CardContent>
         </Card>
     )
 }
 
 function ChosenPluginsDisplay({chosen}: { chosen: Device[] }) {
+    let counter = 0
     return (<Card>
             <CardHeader>
                 <CardTitle>Active Plugin Chain</CardTitle>
@@ -52,9 +64,7 @@ function ChosenPluginsDisplay({chosen}: { chosen: Device[] }) {
             </CardHeader>
             <CardContent>
                 <ul className="min-w-50">
-                    {chosen.length ?
-                        chosen.map(p => (<li>{p.name}</li>))
-                        : (<li>None yet.</li>)}
+                    {chosen.map(p => (<li className="text-sm" key={counter++}>{p.name}</li>))}
                 </ul>
             </CardContent>
             <CardFooter><Button>Apply</Button></CardFooter>
