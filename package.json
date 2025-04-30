@@ -33,7 +33,8 @@
     "commander": "^13.1.0",
     "express": "^5.1.0",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
     "@types/chai": "^5.2.1",
