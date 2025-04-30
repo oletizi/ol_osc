@@ -11,35 +11,54 @@ import {useEffect, useState} from 'react'
 import type {Config} from '@/config.ts'
 import {newClient} from '@/plughost-client.ts'
 import {Button} from '@/components/ui/button.tsx'
-import { Checkbox } from '@/components/ui/checkbox'
+import {Checkbox} from '@/components/ui/checkbox'
+import type {Device} from '@/model.ts'
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
     useEffect(() => {
         if (!config) {
-            newClient(endpoint).then(async client => {
-                const result = await client.getConfig()
-                if (result.data) {
-                    setConfig(result.data)
-                }
-                for (const e of result.errors) {
-                    console.error(e)
-                }
-            })
+            newClient(endpoint).then(client => client.getConfig().then(c => setConfig(c.data)))//fetchConfig(endpoint, setConfig)
         }
     })
     return (<Card>
             <CardHeader>
-                <CardTitle>Resources</CardTitle>
+                <CardTitle>Available Plugins</CardTitle>
                 <CardDescription>Card Description</CardDescription>
             </CardHeader>
             <CardContent>
                 {config ?
                     <ul className="radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto">{config.hostConfig.availableResources.plugins.map(p => (
-                        <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2"><Checkbox/> {p.name}</li>))}</ul> : ''}
+                        <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2">
+                            <Checkbox/> {p.name}</li>))}</ul> : ''}
             </CardContent>
-            <CardFooter><Button>Apply</Button></CardFooter>
         </Card>
     )
 }
 
+export function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
+    const [config, setConfig] = useState<Config | null>()
+    const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
+    useEffect(() => {
+        if (!config) {
+            newClient(endpoint).then(client => client.getConfig().then(result => {
+                const config = result.data
+                if (config) {
+                    setConfig(config)
+                    setChosenPlugins(config.hostConfig.activePluginChain)
+                }
+            }))
+
+        }
+    })
+    return (<Card>
+        <CardHeader>
+            <CardTitle>Chosen Plugins</CardTitle>
+            <CardDescription>The plugins you want to run.</CardDescription>
+        </CardHeader>
+        <CardContent>
+            {chosenPlugins ? (<ul className="min-w-50">{ chosenPlugins.length ? chosenPlugins.map(p => (<li>{p.name}</li>)) : (<li>None yet.</li>)}</ul>) : 'Yikes.'}
+        </CardContent>
+        <CardFooter><Button>Apply</Button></CardFooter>
+    </Card>)
+}

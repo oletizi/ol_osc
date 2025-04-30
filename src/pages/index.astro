@@ -1,8 +1,6 @@
 ---
 import BasicLayout from '../layouts/BasicLayout.astro'
-import {ResourcesDisplay} from '../components/ResourcesDisplay'
-import {ConfigDisplay} from '../components/ConfigDisplay'
-import { Button } from "@/components/ui/button"
+import {ChosenPluginsDisplay, ResourcesDisplay} from '../components/ResourcesDisplay'
 const endpoint = new URL('/api', 'http://localhost:3000')
 ---
 <BasicLayout title="Hello">
@@ -10,8 +8,7 @@ const endpoint = new URL('/api', 'http://localhost:3000')
         <h1>Hello!</h1>
         <div class="flex gap-4">
             <ResourcesDisplay client:only="react" endpoint={endpoint}/>
-            <ConfigDisplay client:only="react" endpoint={endpoint}/>
+            <ChosenPluginsDisplay client:only="react" endpoint={endpoint}/>
         </div>
-        <Button variant="outline">Button</Button>
     </div>
 </BasicLayout>
