@@ -23,28 +23,22 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
         }
     })
     return (<div className="flex gap-4">
-        <AvailablePluginsDisplay endpoint={endpoint}/>
+        <AvailablePluginsDisplay available={config ? config.hostConfig.availableResources.plugins : []}/>
         <ChosenPluginsDisplay endpoint={endpoint}/>
     </div>)
 }
 
-function AvailablePluginsDisplay({endpoint}: { endpoint: URL }) {
-    const [config, setConfig] = useState<Config | null>()
-    useEffect(() => {
-        if (!config) {
-            newClient(endpoint).then(client => client.getConfig().then(c => setConfig(c.data)))//fetchConfig(endpoint, setConfig)
-        }
-    })
+function AvailablePluginsDisplay({available}: { available: Device[] }) {
     return (<Card>
             <CardHeader>
                 <CardTitle>Available Plugins</CardTitle>
                 <CardDescription>Plugins you can add to the active plugin chain.</CardDescription>
             </CardHeader>
             <CardContent>
-                {config ?
-                    <ul className="radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto">{config.hostConfig.availableResources.plugins.map(p => (
+                <ul className="radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto">
+                    {available.map(p => (
                         <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2">
-                            <Checkbox/> {p.name}</li>))}</ul> : ''}
+                            <Checkbox/> {p.name}</li>))}</ul>
             </CardContent>
         </Card>
     )
