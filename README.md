@@ -1,6 +1,11 @@
 # Plughost Manager
 Management interfaces for [plughost](https://github.com/oletizi/ol_dsp/tree/main/modules/juce/host)
 
+Install components
+```
+pnpm dlx shadcn@latest add button
+```
+
 TODO:
 - [ ] Plugin host device configuration
   - [x] Update available plugins
