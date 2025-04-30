@@ -1,15 +1,18 @@
 import type {Config} from '@/config.ts'
 
-export interface ConfigResult {
+export interface Result {
     errors: Error[]
-    data: null | Config
+    data: null | string | Config
 }
+
 
 export interface PlughostClient {
-    getConfig(): Promise<ConfigResult>
+    getConfig(): Promise<Result>
+
+    saveConfig(config: Config | null | undefined): Promise<Result>
 }
 
-export async function newClient(endpoint: URL) : Promise<PlughostClient> {
+export async function newClient(endpoint: URL): Promise<PlughostClient> {
     return new BasicClient(endpoint)
 }
 
@@ -20,13 +23,30 @@ class BasicClient implements PlughostClient {
         this.endpoint = endpoint
     }
 
-    async getConfig(): Promise<ConfigResult> {
+    saveConfig(config: Config): Promise<Result> {
+        return post(new URL(this.endpoint + '/config'), config)
+    }
+
+    async getConfig(): Promise<Result> {
         return get(new URL(this.endpoint + '/config'))
     }
 }
 
-async function get(endpoint: URL) : Promise<{data: any, errors: Error[]}> {
-    const res = await fetch(endpoint, {mode: 'cors'})
+async function get(endpoint: URL): Promise<Result> {
+    return doIt(endpoint, 'GET')
+}
+
+async function post(endpoint: URL, body: Object): Promise<Result> {
+    return doIt(endpoint, 'POST', body)
+}
+
+async function doIt(endpoint: URL, method: string, body?: Object): Promise<Result> {
+    const init: RequestInit = {mode: 'cors', method: method}
+    if (method === 'POST' && body) {
+        init.body = JSON.stringify(body)
+        init.headers = {'Content-Type': 'application/json'}
+    }
+    const res = await fetch(endpoint, init)
     const rv = {
         data: null,
         errors: [] as Error[]

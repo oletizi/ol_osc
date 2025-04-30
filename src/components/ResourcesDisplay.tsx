@@ -19,9 +19,9 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     useEffect(() => {
         if (!config) {
             newClient(endpoint).then(client => client.getConfig().then(c => {
-                setConfig(c.data)
+                setConfig(c.data as Config)
                 if (c.data) {
-                    setChosenPlugins(c.data?.hostConfig?.activePluginChain)
+                    setChosenPlugins((c.data as Config).hostConfig?.activePluginChain)
                 }
             }))
         }
@@ -30,9 +30,19 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const onChosen = (device: Device) => {
         setChosenPlugins(chosenPlugins.concat([device]))
     }
+
+    const onCommit = (devices: Device[]) => {
+        if (config) {
+            config.hostConfig.activePluginChain = devices
+            newClient(endpoint).then(client => client.saveConfig(config).then(console.log))
+        } else {
+            console.error(new Error('Attempt to save null config'))
+        }
+    }
+
     return (<div className="flex gap-4">
         <AvailablePluginsDisplay available={availablePlugins} onChosen={onChosen}/>
-        <ChosenPluginsDisplay chosen={chosenPlugins}/>
+        <ChosenPluginsDisplay chosen={chosenPlugins} onCommit={onCommit}/>
     </div>)
 }
 
@@ -55,7 +65,7 @@ function AvailablePluginsDisplay({available, onChosen}: { available: Device[], o
     )
 }
 
-function ChosenPluginsDisplay({chosen}: { chosen: Device[] }) {
+function ChosenPluginsDisplay({chosen, onCommit}: { chosen: Device[], onCommit: (d: Device[]) => void }) {
     let counter = 0
     return (<Card>
             <CardHeader>
@@ -67,7 +77,7 @@ function ChosenPluginsDisplay({chosen}: { chosen: Device[] }) {
                     {chosen.map(p => (<li className="text-sm" key={counter++}>{p.name}</li>))}
                 </ul>
             </CardContent>
-            <CardFooter><Button>Apply</Button></CardFooter>
+            <CardFooter><Button onClick={() => onCommit(chosen)}>Apply</Button></CardFooter>
         </Card>
     )
 }

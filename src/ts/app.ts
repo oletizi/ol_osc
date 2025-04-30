@@ -1,5 +1,5 @@
 import express, {type Request, type Response} from 'express'
-import {newConfig} from '@/config.ts'
+import {type Config, newConfig, saveConfig} from '@/config.ts'
 import {updateAvailableResources} from '@/plughost.ts'
 
 const port = 3000
@@ -26,6 +26,11 @@ app.get('/api/config', async (_req: Request, res: Response) => {
             data: data
         }
     )
+})
+app.post('/api/config', async(req, res) => {
+    const config = req.body as Config
+    await saveConfig(config)
+    res.send({timestamp: Date.now(), errors: [], data: 'ok'})
 })
 
 app.post('/api/config/update', async (_req: Request, res: Response) => {
