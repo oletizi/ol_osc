@@ -5,7 +5,5 @@ const endpoint = new URL('/api', 'http://localhost:3000')
 ---
 <BasicLayout title="Hello">
     <h1>Hello!</h1>
-    <p>Client display follows...</p>
     <ConfigDisplay client:only="react" endpoint={endpoint} />
-    <p>Client display precedes.</p>
 </BasicLayout>
