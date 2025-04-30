@@ -24,7 +24,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     return (<Card>
             <CardHeader>
                 <CardTitle>Available Plugins</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                <CardDescription>Plugins you can add to the active plugin chain.</CardDescription>
             </CardHeader>
             <CardContent>
                 {config ?
@@ -53,7 +53,7 @@ export function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
     })
     return (<Card>
         <CardHeader>
-            <CardTitle>Chosen Plugins</CardTitle>
+            <CardTitle>Active Plugin Chain</CardTitle>
             <CardDescription>The plugins you want to run.</CardDescription>
         </CardHeader>
         <CardContent>
