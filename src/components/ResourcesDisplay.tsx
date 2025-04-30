@@ -14,7 +14,21 @@ import {Button} from '@/components/ui/button.tsx'
 import {Checkbox} from '@/components/ui/checkbox'
 import type {Device} from '@/model.ts'
 
+
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
+    const [config, setConfig] = useState<Config | null>()
+    useEffect(() => {
+        if (!config) {
+            newClient(endpoint).then(client => client.getConfig().then(c => setConfig(c.data)))//fetchConfig(endpoint, setConfig)
+        }
+    })
+    return (<div className="flex gap-4">
+        <AvailablePluginsDisplay endpoint={endpoint}/>
+        <ChosenPluginsDisplay endpoint={endpoint}/>
+    </div>)
+}
+
+function AvailablePluginsDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
     useEffect(() => {
         if (!config) {
@@ -36,7 +50,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     )
 }
 
-export function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
+function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
     useEffect(() => {
@@ -57,7 +71,9 @@ export function ChosenPluginsDisplay({endpoint}: { endpoint: URL }) {
             <CardDescription>The plugins you want to run.</CardDescription>
         </CardHeader>
         <CardContent>
-            {chosenPlugins ? (<ul className="min-w-50">{ chosenPlugins.length ? chosenPlugins.map(p => (<li>{p.name}</li>)) : (<li>None yet.</li>)}</ul>) : 'Yikes.'}
+            {chosenPlugins ? (
+                <ul className="min-w-50">{chosenPlugins.length ? chosenPlugins.map(p => (<li>{p.name}</li>)) : (
+                    <li>None yet.</li>)}</ul>) : 'Yikes.'}
         </CardContent>
         <CardFooter><Button>Apply</Button></CardFooter>
     </Card>)
