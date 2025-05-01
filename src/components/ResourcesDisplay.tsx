@@ -16,7 +16,7 @@ import {Button} from '@/components/ui/button.tsx'
 import type {Device} from '@/model.ts'
 
 const picklistClasses: string = 'radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto min-w-50'
-const picklistItemClasses:string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex justify-between items-center gap-2'
+const picklistItemClasses: string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex justify-between items-center gap-2'
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
@@ -47,7 +47,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
 
     return (<div className="flex gap-4">
         <AvailablePluginsDisplay available={availablePlugins} onChosen={onChosen}/>
-        <ChosenPluginsDisplay chosen={chosenPlugins} onCommit={onCommit}/>
+        <ChosenPluginsDisplay currentActive={chosenPlugins} onCommit={onCommit}/>
     </div>)
 }
 
@@ -70,7 +70,9 @@ function AvailablePluginsDisplay({available, onChosen}: { available: Device[], o
     )
 }
 
-function ChosenPluginsDisplay({chosen, onCommit}: { chosen: Device[], onCommit: (d: Device[]) => void }) {
+function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device[], onCommit: (d: Device[]) => void }) {
+    const [chosenPlugins, setChosenPlugins] = useState<Device[]>(currentActive)
+    useEffect(() => setChosenPlugins(currentActive), [currentActive])
     let counter = 0
     return (<Card>
             <CardHeader>
@@ -79,10 +81,18 @@ function ChosenPluginsDisplay({chosen, onCommit}: { chosen: Device[], onCommit: 
             </CardHeader>
             <CardContent>
                 <ul className={picklistClasses}>
-                    {chosen.map(p => (<li className={picklistItemClasses} key={counter++}>{p.name}<CloseIcon className="max-w-4"/></li>))}
+                    {chosenPlugins.map((p, index) => (
+                        <li className={picklistItemClasses} key={counter++}>
+                            {p.name}
+                            <CloseIcon className="max-w-4" onClick={() => {
+                                console.log(`Removing plugin at`, index)
+                                currentActive.splice(index, 1)
+                                console.log(`Remaining plugins:`, currentActive)
+                                setChosenPlugins(currentActive)
+                            }}/></li>))}
                 </ul>
             </CardContent>
-            <CardFooter><Button onClick={() => onCommit(chosen)}>Apply</Button></CardFooter>
+            <CardFooter><Button onClick={() => onCommit(chosenPlugins)}>Apply</Button></CardFooter>
         </Card>
     )
 }
