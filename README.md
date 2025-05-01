@@ -14,7 +14,7 @@ TODO:
 - [ ] Web interface
   - [X] Show available devices
   - [ ] Configure active devices
-  - [ ] Configure and update active plugin chain(s)
+  - [X] Configure and update active plugin chain(s)
 - [ ] plughost lifecycle
 - [ ] Per-plugin OSC controller generation (partly done)
 - [ ] OSC controller lifecycle

@@ -2,6 +2,10 @@ import {type Config, saveConfig} from '@/config.ts'
 import {execute} from '@oletizi/lib-runtime'
 import type {Device} from '@/model.ts'
 
+export async function bakePlughostConfig(config:Config) {
+
+}
+
 export async function updateAvailableResources(config: Config): Promise<Config> {
     const hostConfig = config.hostConfig
     const availablePlugins: Device[] = []

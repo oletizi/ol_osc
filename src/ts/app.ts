@@ -17,6 +17,9 @@ app.get('/api/hello', (_req: Request, res: Response) => {
     res.send({msg: 'Hello World!'})
 })
 
+/**
+ * Fetches the current web app json config from disk
+ */
 app.get('/api/config', async (_req: Request, res: Response) => {
     let data = {}, errors = []
     try { data = await newConfig() } catch (e) { errors.push(e) }
@@ -27,18 +30,30 @@ app.get('/api/config', async (_req: Request, res: Response) => {
         }
     )
 })
+
+/**
+ * Updates the web app json config based on the body of the request
+ */
 app.post('/api/config', async(req, res) => {
     const config = req.body as Config
     await saveConfig(config)
     res.send({timestamp: Date.now(), errors: [], data: 'ok'})
 })
 
+/**
+ * Updates the web app json config based on the output of plughost
+ */
 app.post('/api/config/update', async (_req: Request, res: Response) => {
     res.send({
         config: await updateAvailableResources(await newConfig()),
         timestamp: Date.now(),
     })
 })
+
+/**
+ * Bakes out the plughost config based on the current web app config
+ */
+app.post("/api/config/bake", async (_req: Request, res: Response) => {})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

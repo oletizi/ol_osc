@@ -1,11 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card'
+import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from '@/components/ui/card'
 
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -26,8 +19,8 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     useEffect(() => {
         if (!config) {
             newClient(endpoint).then(client => client.getConfig().then(c => {
-                setConfig(c.data as Config)
                 if (c.data) {
+                    setConfig(c.data as Config)
                     setChosenPlugins((c.data as Config).hostConfig?.activePluginChain)
                     setReady(true)
                 }
@@ -75,6 +68,9 @@ function AvailablePluginsDisplay({available, onChosen}: { available: Device[], o
 
 function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device[], onCommit: (d: Device[]) => void }) {
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>(currentActive)
+    useEffect(() => {
+        setChosenPlugins(currentActive)
+    }, [currentActive]) // oof. Need useEffect to update chosenPlugins when currentActive changes.
     let counter = 0
     return (<Card>
             <CardHeader>
@@ -87,9 +83,7 @@ function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device
                         <li className={picklistItemClasses} key={counter++}>
                             {p.name}
                             <CloseIcon className="max-w-4" onClick={() => {
-                                console.log(`Removing plugin at`, index)
                                 chosenPlugins.splice(index, 1)
-                                console.log(`Remaining plugins:`, chosenPlugins)
                                 setChosenPlugins(chosenPlugins.concat([])) // oof. Concat to defeat optimization to not render same object
                             }}/></li>))}
                 </ul>
