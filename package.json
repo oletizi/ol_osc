@@ -24,7 +24,11 @@
   "license": "ISC",
   "dependencies": {
     "@astrojs/react": "^4.2.3",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@fontsource/pt-sans": "^5.2.5",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
     "@oletizi/lib-runtime": "^1.0.3",
     "@oletizi/sampler-lib": "^1.0.9",
     "@radix-ui/react-checkbox": "^1.2.3",

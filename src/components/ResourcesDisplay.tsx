@@ -7,11 +7,16 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 
+import CloseIcon from '@mui/icons-material/Close'
+
 import {useEffect, useState} from 'react'
 import type {Config} from '@/config.ts'
 import {newClient} from '@/plughost-client.ts'
 import {Button} from '@/components/ui/button.tsx'
 import type {Device} from '@/model.ts'
+
+const picklistClasses: string = 'radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto min-w-50'
+const picklistItemClasses:string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex justify-between items-center gap-2'
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
@@ -51,10 +56,10 @@ function AvailablePluginsDisplay({available, onChosen}: { available: Device[], o
     return (<Card>
             <CardHeader>
                 <CardTitle>Available Plugins</CardTitle>
-                <CardDescription>Plugins you can add to the active plugin chain.</CardDescription>
+                <CardDescription>Plugins you can add.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ul className="radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto">
+                <ul className={picklistClasses}>
                     {available.map(p => (
                         <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2"
                             key={counter++}
@@ -70,11 +75,11 @@ function ChosenPluginsDisplay({chosen, onCommit}: { chosen: Device[], onCommit: 
     return (<Card>
             <CardHeader>
                 <CardTitle>Active Plugin Chain</CardTitle>
-                <CardDescription>The plugins you want to run.</CardDescription>
+                <CardDescription>Plugins you've added.</CardDescription>
             </CardHeader>
             <CardContent>
-                <ul className="min-w-50">
-                    {chosen.map(p => (<li className="text-sm" key={counter++}>{p.name}</li>))}
+                <ul className={picklistClasses}>
+                    {chosen.map(p => (<li className={picklistItemClasses} key={counter++}>{p.name}<CloseIcon className="max-w-4"/></li>))}
                 </ul>
             </CardContent>
             <CardFooter><Button onClick={() => onCommit(chosen)}>Apply</Button></CardFooter>
