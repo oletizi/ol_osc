@@ -8,8 +8,8 @@ export interface Result {
 
 export interface PlughostClient {
     getConfig(): Promise<Result>
-
     saveConfig(config: Config | null | undefined): Promise<Result>
+    bakeConfig(config: Config | null | undefined): Promise<Result>
 }
 
 export async function newClient(endpoint: URL): Promise<PlughostClient> {
@@ -21,6 +21,10 @@ class BasicClient implements PlughostClient {
 
     constructor(endpoint: URL) {
         this.endpoint = endpoint
+    }
+
+    bakeConfig(config: Config): Promise<Result> {
+        return post(new URL(this.endpoint + '/config/bake'), config)
     }
 
     saveConfig(config: Config): Promise<Result> {

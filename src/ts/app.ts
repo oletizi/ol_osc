@@ -1,6 +1,6 @@
 import express, {type Request, type Response} from 'express'
 import {type Config, newConfig, saveConfig} from '@/config.ts'
-import {updateAvailableResources} from '@/plughost.ts'
+import {bakePlughostConfig, updateAvailableResources} from '@/plughost.ts'
 
 const port = 3000
 const app = express()
@@ -46,14 +46,17 @@ app.post('/api/config', async(req, res) => {
 app.post('/api/config/update', async (_req: Request, res: Response) => {
     res.send({
         config: await updateAvailableResources(await newConfig()),
-        timestamp: Date.now(),
     })
 })
 
 /**
  * Bakes out the plughost config based on the current web app config
  */
-app.post("/api/config/bake", async (_req: Request, res: Response) => {})
+app.post("/api/config/bake", async (req: Request, res: Response) => {
+    const config = req.body as Config
+    await bakePlughostConfig(config)
+    res.send({timestamp: Date.now(), errors: [], data: 'ok'})
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

@@ -35,7 +35,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const onCommit = (devices: Device[]) => {
         if (config) {
             config.hostConfig.activePluginChain = devices
-            newClient(endpoint).then(client => client.saveConfig(config).then(console.log))
+            newClient(endpoint).then(client => client.saveConfig(config).then(() => client.bakeConfig(config).then(console.log)))
         } else {
             console.error(new Error('Attempt to save null config'))
         }

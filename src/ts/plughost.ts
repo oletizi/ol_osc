@@ -17,7 +17,7 @@ export async function bakePlughostConfig(config: Config) {
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: reference distance>
         await fs.appendFile(outfile, `Plugin: <Format: ${device.type}>, <Name: ${device.name}>\n`)
         for (const param of device.parameters) {
-            await fs.appendFile(outfile, `Plugin Parameter: <Format: ${device.type}>, <Plugin Name: ${param.name}>\n`)
+            await fs.appendFile(outfile, `Plugin Parameter: <Format: ${device.type}>, <Plugin Name: ${device.name}>, <Parameter Name: ${param.name}>\n`)
         }
     }
 }
