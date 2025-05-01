@@ -8,23 +8,22 @@ import {newClient} from '@/plughost-client.ts'
 import {Button} from '@/components/ui/button.tsx'
 import type {Device} from '@/model.ts'
 import {Skeleton} from '@/components/ui/skeleton.tsx'
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from '@/components/ui/select.tsx'
 
-const picklistClasses: string = 'radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto min-w-50'
+const minWidth: string = 'min-w-50'
+const picklistClasses: string = `radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto ${minWidth}`
 const picklistItemClasses: string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex justify-between items-center gap-2'
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
     const [availableAudioInputDevices, setAvailableAudioInputDevices] = useState<Device[]>([])
-    const [chosenAudioInputDevice, setChosenAudioInputDevice] = useState<Device | null>(null)
+    const [chosenAudioInputDevice, setChosenAudioInputDevice] = useState<Device | undefined>(undefined)
 
     const [availableAudioOutputDevices, setAvailableAudioOutputDevices] = useState<Device[]>([])
-    const [chosenAudioOutputDevice, setChosenAudioOutputDevice] = useState<Device | null>(null)
+    const [chosenAudioOutputDevice, setChosenAudioOutputDevice] = useState<Device | undefined>(undefined)
 
     const [availableMidiInputDevices, setAvailableMidiInputDevices] = useState<Device[]>([])
-    const [chosenMidiInputDevice, setChosenMidiInputDevice] = useState<Device | null>(null)
-
-    const [availableMidiOutputDevices, setAvailableMidiOutputDevices] = useState<Device[]>([])
-    const [chosenMidiOutputDevice, setChosenMidiOutputDevice] = useState<Device | null>(null)
+    const [chosenMidiInputDevice, setChosenMidiInputDevice] = useState<Device | undefined>(undefined)
 
     const [availablePlugins, setAvailablePlugins] = useState<Device[]>([])
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
@@ -39,10 +38,17 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
                     const available = hostConfig.availableResources
                     console.log(`Available resources:`, available)
                     setConfig(c)
+
                     setAvailableAudioInputDevices(available.audioInputDevices)
+                    console.log(`Setting chosing audio input devices:`, hostConfig.audioInputDevice)
+                    setChosenAudioInputDevice(hostConfig.audioInputDevice)
+
                     setAvailableAudioOutputDevices(available.audioOutputDevices)
+                    setChosenAudioOutputDevice(hostConfig.audioOutputDevice)
+
                     setAvailableMidiInputDevices(available.midiInputDevices)
-                    setAvailableMidiOutputDevices(available.audioOutputDevices)
+                    setChosenMidiInputDevice(hostConfig.midiInputDevice)
+
                     setAvailablePlugins(available.plugins)
                     setChosenPlugins(hostConfig.activePluginChain)
                     setReady(true)
@@ -54,30 +60,43 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
         setChosenPlugins(chosenPlugins.concat([device]))
     }
 
-    const onCommit = (devices: Device[]) => {
+    const onUpdateActivePlugins = (devices: Device[]) => {
         if (config) {
             config.hostConfig.activePluginChain = devices
-            newClient(endpoint).then(client => client.saveConfig(config).then(() => client.bakeConfig(config).then(console.log)))
         } else {
             console.error(new Error('Attempt to save null config'))
         }
     }
 
     return ready ? (<div className="flex gap-4">
-        <AvailableDevicesDisplay title="Available Plugins" description="Plugins you can use."
-                                 available={availablePlugins} onChosen={onChosenPlugin}/>
-        <ChosenPluginsDisplay currentActive={chosenPlugins} onCommit={onCommit}/>
-        <div className="flex flex-col gap-4 justify-between">
-            <AvailableDevicesDisplay title="Available Audio Input Devices" description="Audio inputs you can use"
-                                     available={availableAudioInputDevices}
-                                     onChosen={(d: Device) => setChosenAudioInputDevice(d)}/>
-            <AvailableDevicesDisplay title="Available Audio Output Devices" description="Audio outputs you can use"
-                                     available={availableAudioOutputDevices}
-                                     onChosen={(d) => setChosenAudioOutputDevice(d)}/>
+            <AvailableDevicesDisplay title="Available Plugins" description="Plugins you can use."
+                                     available={availablePlugins} onChosen={onChosenPlugin}/>
+            <ChosenPluginsDisplay currentActive={chosenPlugins} onUpdate={onUpdateActivePlugins}/>
+            <div className="flex flex-col gap-4 justify-between">
+                <AvailableDevicesPicker title="Audio Input Device" description="Audio inputs you can use"
+                                        available={availableAudioInputDevices}
+                                        initialChosen={chosenAudioInputDevice}
+                                        onChosen={(d) => {
+                                            if (d && config) {
+                                                config.hostConfig.audioInputDevice = d
+                                            }
+                                            setChosenAudioInputDevice(d)
+                                        }}/>
+                <AvailableDevicesPicker title="Audio Output Device" description="Audio outputs you can use"
+                                        available={availableAudioOutputDevices}
+                                        initialChosen={chosenAudioOutputDevice}
+                                        onChosen={(d) => {
+                                            if (d && config) {
+                                                config.hostConfig.audioOutputDevice = d
+                                            }
+                                            setChosenAudioOutputDevice(d)
+                                        }}/>
+            </div>
+            <Button onClick={() => newClient(endpoint).then(c => c.saveConfig(config)).then(console.log)}>Apply</Button>
+            <Button
+                onClick={() => newClient(endpoint).then(c => c.sync().then(r => setConfig(r.data as Config)))}>Sync</Button>
         </div>
-        <Button
-            onClick={() => newClient(endpoint).then(c => c.sync().then(r => setConfig(r.data as Config)))}>Sync</Button>
-    </div>) : (<Card><Skeleton/></Card>)
+    ) : (<Card><Skeleton/></Card>)
 }
 
 function AvailableDevicesDisplay({title, description, available, onChosen}: {
@@ -104,7 +123,33 @@ function AvailableDevicesDisplay({title, description, available, onChosen}: {
     )
 }
 
-function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device[], onCommit: (d: Device[]) => void }) {
+function AvailableDevicesPicker({title, description, available, initialChosen, onChosen}: {
+    title: string,
+    description: string,
+    available: Device[],
+    initialChosen: Device | undefined
+    onChosen: (d: Device | undefined) => void
+}) {
+    const [chosen, setChosen] = useState<Device | undefined>(initialChosen)
+    useEffect(() => {setChosen(initialChosen)}, [initialChosen])
+    console.log(`Initial chosen:`, initialChosen)
+    return (<Card>
+        <CardHeader>
+            <CardTitle>{title}</CardTitle>
+            <CardDescription>{description}</CardDescription>
+        </CardHeader>
+        <CardContent className={minWidth}>
+            <Select value={initialChosen?.id} onValueChange={(v) => onChosen(available.find((d) => d.id === v))}>
+                <SelectTrigger><SelectValue placeholder="Select"/></SelectTrigger>
+                <SelectContent>
+                    {available.map(d => (<SelectItem key={d.id} value={d.id}>{d.name}</SelectItem>))}
+                </SelectContent>
+            </Select>
+        </CardContent>
+    </Card>)
+}
+
+function ChosenPluginsDisplay({currentActive, onUpdate}: { currentActive: Device[], onUpdate: (d: Device[]) => void }) {
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>(currentActive)
     useEffect(() => {
         setChosenPlugins(currentActive)
@@ -122,11 +167,12 @@ function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device
                             {p.name}
                             <CloseIcon className="max-w-4" onClick={() => {
                                 chosenPlugins.splice(index, 1)
-                                setChosenPlugins(chosenPlugins.concat([])) // oof. Concat to defeat optimization to not render same object
+                                const updated = chosenPlugins.concat([])
+                                onUpdate(updated)
+                                setChosenPlugins(updated) // oof. Concat to defeat optimization to not render same object
                             }}/></li>))}
                 </ul>
             </CardContent>
-            <CardFooter><Button onClick={() => onCommit(chosenPlugins)}>Apply</Button></CardFooter>
         </Card>
     )
 }

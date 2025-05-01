@@ -4,7 +4,7 @@ import {bakePlughostConfig, updateAvailableResources} from '@/plughost.ts'
 
 const port = 3000
 const app = express()
-app.use(express.json())
+app.use(express.json({ limit: '2000kb' }))
 app.use((_req, res, next) => {
     res.append('Access-Control-Allow-Origin', ['*']);
     res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');

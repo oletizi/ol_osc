@@ -33,6 +33,7 @@ class BasicClient implements PlughostClient {
     }
 
     saveConfig(config: Config): Promise<Result> {
+        console.log(`Saving config:`, config)
         return post(new URL(this.endpoint + '/config'), config)
     }
 
