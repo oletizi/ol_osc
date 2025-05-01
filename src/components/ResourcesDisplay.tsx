@@ -14,21 +14,43 @@ const picklistItemClasses: string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary c
 
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
+    const [availableAudioInputDevices, setAvailableAudioInputDevices] = useState<Device[]>([])
+    const [chosenAudioInputDevice, setChosenAudioInputDevice] = useState<Device | null>(null)
+
+    const [availableAudioOutputDevices, setAvailableAudioOutputDevices] = useState<Device[]>([])
+    const [chosenAudioOutputDevice, setChosenAudioOutputDevice] = useState<Device | null>(null)
+
+    const [availableMidiInputDevices, setAvailableMidiInputDevices] = useState<Device[]>([])
+    const [chosenMidiInputDevice, setChosenMidiInputDevice] = useState<Device | null>(null)
+
+    const [availableMidiOutputDevices, setAvailableMidiOutputDevices] = useState<Device[]>([])
+    const [chosenMidiOutputDevice, setChosenMidiOutputDevice] = useState<Device | null>(null)
+
+    const [availablePlugins, setAvailablePlugins] = useState<Device[]>([])
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
+
     const [ready, setReady] = useState<boolean>(false)
     useEffect(() => {
         if (!config) {
-            newClient(endpoint).then(client => client.getConfig().then(c => {
-                if (c.data) {
-                    setConfig(c.data as Config)
-                    setChosenPlugins((c.data as Config).hostConfig?.activePluginChain)
+            newClient(endpoint).then(client => client.getConfig().then(r => {
+                if (r.data) {
+                    const c = (r.data as Config)
+                    const hostConfig = c.hostConfig
+                    const available = hostConfig.availableResources
+                    console.log(`Available resources:`, available)
+                    setConfig(c)
+                    setAvailableAudioInputDevices(available.audioInputDevices)
+                    setAvailableAudioOutputDevices(available.audioOutputDevices)
+                    setAvailableMidiInputDevices(available.midiInputDevices)
+                    setAvailableMidiOutputDevices(available.audioOutputDevices)
+                    setAvailablePlugins(available.plugins)
+                    setChosenPlugins(hostConfig.activePluginChain)
                     setReady(true)
                 }
             }))
         }
-    })
-    const availablePlugins: Device[] = config ? config.hostConfig.availableResources.plugins : []
-    const onChosen = (device: Device) => {
+    }, [config])
+    const onChosenPlugin = (device: Device) => {
         setChosenPlugins(chosenPlugins.concat([device]))
     }
 
@@ -42,25 +64,41 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     }
 
     return ready ? (<div className="flex gap-4">
-        <AvailablePluginsDisplay available={availablePlugins} onChosen={onChosen}/>
+        <AvailableDevicesDisplay title="Available Plugins" description="Plugins you can use."
+                                 available={availablePlugins} onChosen={onChosenPlugin}/>
         <ChosenPluginsDisplay currentActive={chosenPlugins} onCommit={onCommit}/>
+        <div className="flex flex-col gap-4 justify-between">
+            <AvailableDevicesDisplay title="Available Audio Input Devices" description="Audio inputs you can use"
+                                     available={availableAudioInputDevices}
+                                     onChosen={(d: Device) => setChosenAudioInputDevice(d)}/>
+            <AvailableDevicesDisplay title="Available Audio Output Devices" description="Audio outputs you can use"
+                                     available={availableAudioOutputDevices}
+                                     onChosen={(d) => setChosenAudioOutputDevice(d)}/>
+        </div>
+        <Button
+            onClick={() => newClient(endpoint).then(c => c.sync().then(r => setConfig(r.data as Config)))}>Sync</Button>
     </div>) : (<Card><Skeleton/></Card>)
 }
 
-function AvailablePluginsDisplay({available, onChosen}: { available: Device[], onChosen: (d: Device) => void }) {
+function AvailableDevicesDisplay({title, description, available, onChosen}: {
+    title: string,
+    description: string,
+    available: Device[],
+    onChosen: (d: Device) => void
+}) {
     let counter = 0
     return (<Card>
             <CardHeader>
-                <CardTitle>Available Plugins</CardTitle>
-                <CardDescription>Plugins you can add.</CardDescription>
+                <CardTitle>{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
             </CardHeader>
             <CardContent>
                 <ul className={picklistClasses}>
-                    {available.map(p => (
+                    {available.map(d => (
                         <li className="text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex gap-2"
                             key={counter++}
-                            onClick={() => onChosen(p)}>
-                            {p.name}</li>))}</ul>
+                            onClick={() => onChosen(d)}>
+                            {d.name}</li>))}</ul>
             </CardContent>
         </Card>
     )
