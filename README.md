@@ -12,7 +12,7 @@ TODO:
   - [ ] Configure audio in/out and midi devices
   - [ ] Preset plugin chains
 - [ ] Web interface
-  - [ ] Show available devices
+  - [X] Show available devices
   - [ ] Configure active devices
   - [ ] Configure and update active plugin chain(s)
 - [ ] plughost lifecycle

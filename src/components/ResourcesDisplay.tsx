@@ -14,6 +14,7 @@ import type {Config} from '@/config.ts'
 import {newClient} from '@/plughost-client.ts'
 import {Button} from '@/components/ui/button.tsx'
 import type {Device} from '@/model.ts'
+import {Skeleton} from '@/components/ui/skeleton.tsx'
 
 const picklistClasses: string = 'radius pt-1 border-1 border-secondary shadow-inner max-h-50 overflow-auto min-w-50'
 const picklistItemClasses: string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary cursor-default flex justify-between items-center gap-2'
@@ -21,12 +22,14 @@ const picklistItemClasses: string = 'text-sm pl-2 pr-4 py-1 hover:bg-secondary c
 export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
     const [config, setConfig] = useState<Config | null>()
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>([])
+    const [ready, setReady] = useState<boolean>(false)
     useEffect(() => {
         if (!config) {
             newClient(endpoint).then(client => client.getConfig().then(c => {
                 setConfig(c.data as Config)
                 if (c.data) {
                     setChosenPlugins((c.data as Config).hostConfig?.activePluginChain)
+                    setReady(true)
                 }
             }))
         }
@@ -45,10 +48,10 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
         }
     }
 
-    return (<div className="flex gap-4">
+    return ready ? (<div className="flex gap-4">
         <AvailablePluginsDisplay available={availablePlugins} onChosen={onChosen}/>
         <ChosenPluginsDisplay currentActive={chosenPlugins} onCommit={onCommit}/>
-    </div>)
+    </div>) : (<Card><Skeleton/></Card>)
 }
 
 function AvailablePluginsDisplay({available, onChosen}: { available: Device[], onChosen: (d: Device) => void }) {
@@ -72,7 +75,6 @@ function AvailablePluginsDisplay({available, onChosen}: { available: Device[], o
 
 function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device[], onCommit: (d: Device[]) => void }) {
     const [chosenPlugins, setChosenPlugins] = useState<Device[]>(currentActive)
-    useEffect(() => setChosenPlugins(currentActive), [currentActive])
     let counter = 0
     return (<Card>
             <CardHeader>
@@ -86,9 +88,9 @@ function ChosenPluginsDisplay({currentActive, onCommit}: { currentActive: Device
                             {p.name}
                             <CloseIcon className="max-w-4" onClick={() => {
                                 console.log(`Removing plugin at`, index)
-                                currentActive.splice(index, 1)
-                                console.log(`Remaining plugins:`, currentActive)
-                                setChosenPlugins(currentActive)
+                                chosenPlugins.splice(index, 1)
+                                console.log(`Remaining plugins:`, chosenPlugins)
+                                setChosenPlugins(chosenPlugins.concat([])) // oof. Concat to defeat optimization to not render same object
                             }}/></li>))}
                 </ul>
             </CardContent>
