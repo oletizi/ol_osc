@@ -22,33 +22,76 @@ export async function bakePlughostConfig(config: Config) {
     }
 }
 
+// Audio Input Device: <Type: CoreAudio>, <Name: BlackHole 64ch>
+// Audio Input Device: <Type: CoreAudio>, <Name: MacBook Pro Microphone>
+// Audio Input Device: <Type: CoreAudio>, <Name: Orion’s iPhone 15 Microphone>
+// Audio Input Device: <Type: CoreAudio>, <Name: NoMachine Audio Adapter>
+// Audio Input Device: <Type: CoreAudio>, <Name: NoMachine Microphone Adapter>
+// Audio Input Device: <Type: CoreAudio>, <Name: Aggregate Device>
+// Audio Output Device: <Type: CoreAudio>, <Name: BlackHole 64ch>
+// Audio Output Device: <Type: CoreAudio>, <Name: External Headphones>
+// Audio Output Device: <Type: CoreAudio>, <Name: MacBook Pro Speakers>
+// Audio Output Device: <Type: CoreAudio>, <Name: NoMachine Audio Adapter>
+// Audio Output Device: <Type: CoreAudio>, <Name: NoMachine Microphone Adapter>
+// Audio Output Device: <Type: CoreAudio>, <Name: Aggregate Device>
+// Midi Input Device: <Name: Network m4-mini>
+// Midi Input Device: <Name: virtual1>
+// Midi Input Device: <Name: virtual2>
+// Midi Input Device: <Name: from Max 1>
+// Midi Input Device: <Name: from Max 2>
+// Midi Input Device: <Name: Logic Pro Virtual Out>
 export async function updateAvailableResources(config: Config): Promise<Config> {
     const hostConfig = config.hostConfig
     const availablePlugins: Device[] = []
+    const availableAudioInputDevices: Device[] = []
+    const availableAudioOutputDevices: Device[] = []
+    const availableMidiInputDevices: Device[] = []
     let currentPlugin: Device | null = null
     await execute(hostConfig.executablePath, ['--list'], {
         onData(buf: Buffer): void {
-            const line = buf.toString()
-            if (line.startsWith('Plugin:')) {
-                console.log(`PLUGIN: ${line}`)
-                const name = parseArg(line, 'Name')
-                currentPlugin = {id: normalize(name), name: name, parameters: [], type: parseArg(line, 'Format')}
-                availablePlugins.push(currentPlugin)
-            } else if (line.startsWith('Plugin Parameter:')) {
-                const name = parseArg(line, 'Name')
-                currentPlugin?.parameters.push({
-                    description: 'UNKNOWN',
-                    label: 'UNKNOWN',
-                    name: parseArg(line, 'Parameter Name'),
-                    osc: normalize(name),
-                    type: ''
-                })
+            const lines = buf.toString().split('\n')
+            for (const line of lines) {
+
+
+                if (line.startsWith('Plugin:')) {
+                    console.log(`PLUGIN: ${line}`)
+                    const name = parseArg(line, 'Name')
+                    currentPlugin = {id: normalize(name), name: name, parameters: [], type: parseArg(line, 'Format')}
+                    availablePlugins.push(currentPlugin)
+                } else if (line.startsWith('Plugin Parameter:')) {
+                    const name = parseArg(line, 'Name')
+                    currentPlugin?.parameters.push({
+                        description: 'UNKNOWN',
+                        label: 'UNKNOWN',
+                        name: parseArg(line, 'Parameter Name'),
+                        osc: normalize(name),
+                        type: ''
+                    })
+                } else if (line.startsWith('Audio Input Device')) {
+                    console.log(`Audio input: ${line}`)
+                    const name = parseArg(line, 'Name')
+                    const type = parseArg(line, 'Type')
+                    availableAudioInputDevices.push({id: type + name, name: name, parameters: [], type: type})
+                } else if (line.startsWith('Audio Output Device')) {
+                    console.log(`Audio Output Device: ${line}`)
+                    const name = parseArg(line, 'Name')
+                    const type = parseArg(line, 'Type')
+                    availableAudioOutputDevices.push({id: type + name, name: name, parameters: [], type: type})
+                } else if (line.startsWith('Midi Input Device')) {
+                    console.log(`MIDI input device: ${line}`)
+                    const name = parseArg(line, 'Name')
+                    const type = parseArg(line, 'Type')
+                    availableMidiInputDevices.push({id: type + name, name: name, parameters: [], type: type})
+                }
             }
         },
         onStart(): void {
         }
     })
     const available = hostConfig.availableResources
+    available.audioInputDevices = availableAudioInputDevices
+    available.audioOutputDevices = availableAudioOutputDevices
+    available.midiInputDevices = availableMidiInputDevices
     available.plugins = availablePlugins
     return saveConfig(config)
 }
