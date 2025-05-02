@@ -6,7 +6,11 @@ import * as fs from 'fs/promises'
 
 export async function bakePlughostConfig(config: Config) {
     const outfile = path.join(config.dataDir, 'config')
+    const hostConfig = config.hostConfig
     await fs.writeFile(outfile, '')
+    await fs.appendFile(outfile, `Audio Input Device: <Type: ${hostConfig.audioInputDevice.type}>, <Name: ${config.hostConfig.audioInputDevice.name}>\n`)
+    await fs.appendFile(outfile, `Audio Output Device: <Type: ${hostConfig.audioOutputDevice.type}>, <Name: ${hostConfig.audioOutputDevice.name}>\n`)
+    await fs.appendFile(outfile, `Midi Input Device: <Name: ${hostConfig.midiInputDevice.name}>\n`)
     for (const device of config.hostConfig.activePluginChain) {
         // Plugin: <Format: AudioUnit>, <Name: HRTFPanner>
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: gain>

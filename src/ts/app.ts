@@ -53,8 +53,10 @@ app.post('/api/config/update', async (_req: Request, res: Response) => {
  * Bakes out the plughost config based on the current web app config
  */
 app.post("/api/config/bake", async (req: Request, res: Response) => {
+    console.log(`Baking config...`)
     const config = req.body as Config
     await bakePlughostConfig(config)
+    console.log(`Done baking config.`)
     res.send({timestamp: Date.now(), errors: [], data: 'ok'})
 })
 

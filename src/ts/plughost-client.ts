@@ -29,6 +29,7 @@ class BasicClient implements PlughostClient {
     }
 
     bakeConfig(config: Config): Promise<Result> {
+        console.log(`Baking config`, config)
         return post(new URL(this.endpoint + '/config/bake'), config)
     }
 

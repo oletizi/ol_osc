@@ -1,4 +1,4 @@
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from '@/components/ui/card'
+import {Card, CardContent, CardDescription, CardHeader, CardTitle,} from '@/components/ui/card'
 
 import CloseIcon from '@mui/icons-material/Close'
 
@@ -57,7 +57,11 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
         }
     }, [config])
     const onChosenPlugin = (device: Device) => {
-        setChosenPlugins(chosenPlugins.concat([device]))
+        const updated = chosenPlugins.concat([device])
+        if (config) {
+            config.hostConfig.activePluginChain = updated
+        }
+        setChosenPlugins(updated)
     }
 
     const onUpdateActivePlugins = (devices: Device[]) => {
@@ -73,7 +77,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
                                      available={availablePlugins} onChosen={onChosenPlugin}/>
             <ChosenPluginsDisplay currentActive={chosenPlugins} onUpdate={onUpdateActivePlugins}/>
             <div className="flex flex-col gap-4 justify-between">
-                <AvailableDevicesPicker title="Audio Input Device" description="Audio inputs you can use"
+                <AvailableDevicesPicker title="Audio Input Device" description="Audio inputs you can use."
                                         available={availableAudioInputDevices}
                                         initialChosen={chosenAudioInputDevice}
                                         onChosen={(d) => {
@@ -82,7 +86,7 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
                                             }
                                             setChosenAudioInputDevice(d)
                                         }}/>
-                <AvailableDevicesPicker title="Audio Output Device" description="Audio outputs you can use"
+                <AvailableDevicesPicker title="Audio Output Device" description="Audio outputs you can use."
                                         available={availableAudioOutputDevices}
                                         initialChosen={chosenAudioOutputDevice}
                                         onChosen={(d) => {
@@ -92,7 +96,23 @@ export function ResourcesDisplay({endpoint}: { endpoint: URL }) {
                                             setChosenAudioOutputDevice(d)
                                         }}/>
             </div>
-            <Button onClick={() => newClient(endpoint).then(c => c.saveConfig(config)).then(console.log)}>Apply</Button>
+            <div className="flex flex-col gap-4 justify-between">
+                <AvailableDevicesPicker title="MIDI Device" description="MIDI devices you can use"
+                                        available={availableMidiInputDevices}
+                                        initialChosen={chosenMidiInputDevice}
+                                        onChosen={(d) => {
+                                            if (d && config) {
+                                                config.hostConfig.midiInputDevice = d
+                                            }
+                                            setChosenMidiInputDevice(d)
+                                        }}
+                />
+            </div>
+            <Button
+                onClick={() => newClient(endpoint).then(async c => {
+                    await c.saveConfig(config)
+                    await c.bakeConfig(config)
+                })}>Apply</Button>
             <Button
                 onClick={() => newClient(endpoint).then(c => c.sync().then(r => setConfig(r.data as Config)))}>Sync</Button>
         </div>
@@ -130,8 +150,6 @@ function AvailableDevicesPicker({title, description, available, initialChosen, o
     initialChosen: Device | undefined
     onChosen: (d: Device | undefined) => void
 }) {
-    const [chosen, setChosen] = useState<Device | undefined>(initialChosen)
-    useEffect(() => {setChosen(initialChosen)}, [initialChosen])
     console.log(`Initial chosen:`, initialChosen)
     return (<Card>
         <CardHeader>
