@@ -3,9 +3,12 @@ import {execute} from '@oletizi/lib-runtime'
 import type {Device} from '@/model.ts'
 import path from 'path'
 import * as fs from 'fs/promises'
+import {genWidgetsFromSpec} from '@/gen'
 
 export async function bakePlughostConfig(config: Config) {
-    const outfile = path.join(config.dataDir, 'config')
+
+
+    let outfile = path.join(config.dataDir, 'config')
     const hostConfig = config.hostConfig
     await fs.writeFile(outfile, '')
     await fs.appendFile(outfile, `Audio Input Device: <Type: ${hostConfig.audioInputDevice.type}>, <Name: ${config.hostConfig.audioInputDevice.name}>\n`)
@@ -14,14 +17,6 @@ export async function bakePlughostConfig(config: Config) {
     let cc = 80
 
     for (const device of config.hostConfig.activePluginChain) {
-        // Plugin: <Format: AudioUnit>, <Name: HRTFPanner>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: gain>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: azimuth>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: elevation>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: distance>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: coordinate scale>
-        // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: reference distance>
-        // <CC: 81>, <OSC: /pre>
         await fs.appendFile(outfile, `Plugin: <Format: ${device.type}>, <Name: ${device.name}>\n`)
         for (const param of device.parameters) {
             if (param.name) {
@@ -29,26 +24,24 @@ export async function bakePlughostConfig(config: Config) {
             }
         }
     }
+
+    // Write open-stage-control config
+    outfile = path.join(config.dataDir, 'spec.json')
+    await fs.writeFile(outfile, JSON.stringify({
+        devices: config.hostConfig.activePluginChain.map(d => {
+            for (const p of d.parameters) {
+                if (!p.label || p.label === 'UNKNOWN') {
+                    p.label = p.name
+                }
+                // open stage control doesn't like the leading slash—it adds its own, for some reason.
+                p.osc = p.osc.replace('/', '')
+            }
+            return d
+        })
+    }, null, 2))
+    await genWidgetsFromSpec(outfile, config.dataDir)
 }
 
-// Audio Input Device: <Type: CoreAudio>, <Name: BlackHole 64ch>
-// Audio Input Device: <Type: CoreAudio>, <Name: MacBook Pro Microphone>
-// Audio Input Device: <Type: CoreAudio>, <Name: Orion’s iPhone 15 Microphone>
-// Audio Input Device: <Type: CoreAudio>, <Name: NoMachine Audio Adapter>
-// Audio Input Device: <Type: CoreAudio>, <Name: NoMachine Microphone Adapter>
-// Audio Input Device: <Type: CoreAudio>, <Name: Aggregate Device>
-// Audio Output Device: <Type: CoreAudio>, <Name: BlackHole 64ch>
-// Audio Output Device: <Type: CoreAudio>, <Name: External Headphones>
-// Audio Output Device: <Type: CoreAudio>, <Name: MacBook Pro Speakers>
-// Audio Output Device: <Type: CoreAudio>, <Name: NoMachine Audio Adapter>
-// Audio Output Device: <Type: CoreAudio>, <Name: NoMachine Microphone Adapter>
-// Audio Output Device: <Type: CoreAudio>, <Name: Aggregate Device>
-// Midi Input Device: <Name: Network m4-mini>
-// Midi Input Device: <Name: virtual1>
-// Midi Input Device: <Name: virtual2>
-// Midi Input Device: <Name: from Max 1>
-// Midi Input Device: <Name: from Max 2>
-// Midi Input Device: <Name: Logic Pro Virtual Out>
 export async function updateAvailableResources(config: Config): Promise<Config> {
     const hostConfig = config.hostConfig
     const availablePlugins: Device[] = []
