@@ -11,6 +11,8 @@ export async function bakePlughostConfig(config: Config) {
     await fs.appendFile(outfile, `Audio Input Device: <Type: ${hostConfig.audioInputDevice.type}>, <Name: ${config.hostConfig.audioInputDevice.name}>\n`)
     await fs.appendFile(outfile, `Audio Output Device: <Type: ${hostConfig.audioOutputDevice.type}>, <Name: ${hostConfig.audioOutputDevice.name}>\n`)
     await fs.appendFile(outfile, `Midi Input Device: <Name: ${hostConfig.midiInputDevice.name}>\n`)
+    let cc = 80
+
     for (const device of config.hostConfig.activePluginChain) {
         // Plugin: <Format: AudioUnit>, <Name: HRTFPanner>
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: gain>
@@ -19,9 +21,12 @@ export async function bakePlughostConfig(config: Config) {
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: distance>
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: coordinate scale>
         // Plugin Parameter: <Format: AudioUnit>, <Plugin Name: HRTFPanner>, <Parameter Name: reference distance>
+        // <CC: 81>, <OSC: /pre>
         await fs.appendFile(outfile, `Plugin: <Format: ${device.type}>, <Name: ${device.name}>\n`)
         for (const param of device.parameters) {
-            await fs.appendFile(outfile, `Plugin Parameter: <Format: ${device.type}>, <Plugin Name: ${device.name}>, <Parameter Name: ${param.name}>\n`)
+            if (param.name) {
+                await fs.appendFile(outfile, `Plugin Parameter: <Format: ${device.type}>, <Plugin Name: ${device.name}>, <Parameter Name: ${param.name}>, <CC: ${cc++}>, <OSC: ${param.osc ? param.osc : oscPath(device.name, param.name)}>\n`)
+            }
         }
     }
 }
@@ -55,8 +60,6 @@ export async function updateAvailableResources(config: Config): Promise<Config> 
         onData(buf: Buffer): void {
             const lines = buf.toString().split('\n')
             for (const line of lines) {
-
-
                 if (line.startsWith('Plugin:')) {
                     console.log(`PLUGIN: ${line}`)
                     const name = parseArg(line, 'Name')
@@ -64,11 +67,12 @@ export async function updateAvailableResources(config: Config): Promise<Config> 
                     availablePlugins.push(currentPlugin)
                 } else if (line.startsWith('Plugin Parameter:')) {
                     const name = parseArg(line, 'Name')
+                    const paramName = parseArg(line, 'Parameter Name')
                     currentPlugin?.parameters.push({
                         description: 'UNKNOWN',
                         label: 'UNKNOWN',
-                        name: parseArg(line, 'Parameter Name'),
-                        osc: normalize(name),
+                        name: paramName,
+                        osc: oscPath(name, paramName),
                         type: ''
                     })
                 } else if (line.startsWith('Audio Input Device')) {
@@ -113,4 +117,8 @@ function parseArg(line: string, arg: string): string {
         rv = line.substring(start, end)
     }
     return rv
+}
+
+function oscPath(deviceName: string, paramName: string): string {
+    return `/${normalize(deviceName)}/${normalize(paramName)}`
 }
